@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-oxanium), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette, sampled from the Figma "home2" frame. */
+  --color-brand: #0854a5;
+  --color-brand-soft: #3967b5;
+  --color-brand-button: #3d69b2;
+  --color-navy: #151d48;
+  --color-navy-ink: #15214e;
+  --color-ink: #01040d;
+  --color-page: #efefef;
+  --color-body: #4b4b4b;
+  --color-muted: #b1b1b1;
+  --color-muted-soft: #d3d3d3;
+  --color-steel: #6e95be;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #15214e;
+
+  /*
+   * Page gutter. From ~1552px up this resolves so the content column is
+   * exactly 1504px wide — the content width of the 1920px Figma frame, whose
+   * gutters are 208px. Section rules bleed to the viewport edge by reusing
+   * this value, so they always meet the content edge exactly.
+   */
+  --page-gutter: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-gutter: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: 3rem;
+  }
+}
+
+/*
+ * Platform capability card. Both edges are inset shadows rather than borders,
+ * so the 1px default -> 4px featured change costs no layout and can be
+ * transitioned. The hover state is the frame's featured card treatment.
+ */
+.platform-card {
+  background-color: #ffffff;
+  box-shadow: inset 0 0 0 1px #15214e;
+  transition:
+    background-color 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.platform-card:hover,
+.platform-card:focus-within {
+  background-color: rgba(8, 84, 165, 0.2);
+  box-shadow:
+    inset 0 0 0 4px #0854a5,
+    0 18px 40px -12px rgba(8, 84, 165, 0.28);
+  transform: translateY(-4px);
+}
+
+/*
+ * Product capability card. Default is the light 132px-tall card; hover and
+ * the clicked active state expand to the 271px blue card from the frame's
+ * "hover state" group. Height is transitioned rather than the row reflowing:
+ * each card's <li> already reserves the expanded height.
+ */
+.product-card {
+  background-color: #ebf1fd;
+  transition:
+    background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card__body,
+.product-card__plus {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 1024px) {
+  .product-card:hover,
+  .product-card:focus-visible,
+  .product-card.is-active {
+    height: 271px;
+    background-color: #b2cdff;
+    box-shadow: 0 22px 44px -20px rgba(8, 84, 165, 0.45);
+  }
+}
+
+.product-card:hover .product-card__body,
+.product-card:hover .product-card__plus,
+.product-card:focus-visible .product-card__body,
+.product-card:focus-visible .product-card__plus,
+.product-card.is-active .product-card__body,
+.product-card.is-active .product-card__plus {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 60ms;
+}
+
+/* Below lg the cards stack and always show their full content. */
+@media (max-width: 1023px) {
+  .product-card__body,
+  .product-card__plus {
+    opacity: 1;
+    transform: none;
+  }
+
+  .product-card.is-active {
+    background-color: #b2cdff;
+  }
+}
+
+/*
+ * Two-tone paragraph sweep. Only the grey clause carries this; on hover the
+ * brand colour flows in from the left. Default paint is the frame's grey.
+ */
+.color-flow {
+  background-image: linear-gradient(
+    90deg,
+    var(--flow-to) 0%,
+    var(--flow-to) 50%,
+    var(--flow-from) 50%,
+    var(--flow-from) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group\/flow:hover .color-flow {
+  background-position: 0 0;
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --page-gutter: max(1.5rem, calc((100vw - 1504px) / 2));
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* The stablecoin globe overruns the canvas by design; clip rather than
+     scroll. `clip` (not `hidden`) avoids creating a scroll container. */
+  overflow-x: clip;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The pill CTA gradient used across every section of the design. */
+.cta-gradient {
+  background-image: linear-gradient(90deg, #6e95be 0%, #151d48 100%);
+}
+
+/* Horizontal carousels keep their scroll affordance without a visible bar. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Keep colour feedback, drop the movement. */
+  .platform-card {
+    transition:
+      background-color 350ms ease,
+      box-shadow 350ms ease;
+  }
+
+  .platform-card:hover,
+  .platform-card:focus-within {
+    transform: none;
+  }
+
+  .color-flow,
+  .float-card {
+    transition: none;
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Gentle idle float for the three overlapping trust cards. */
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-card {
+  animation: float-card 7s ease-in-out infinite;
+  will-change: transform;
+}
