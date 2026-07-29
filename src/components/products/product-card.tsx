@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -18,10 +17,13 @@ export type Product = {
 /**
  * Product capability card.
  *
- * Default is the light 300x132 card from the frame (#EBF1FD); hover and the
- * clicked "active" state are the 301x271 blue card from the
- * "hover state of infinios product cards" group (#B2CDFF) — body copy and the
- * "+" button fade in, and the card grows downward.
+ * Default is the light 300x132 card from the frame (#EBF1FD); hover is the
+ * 301x271 blue card from the "hover state of infinios product cards" group
+ * (#B2CDFF) — body copy and the "+" button fade in, and the card grows
+ * downward.
+ *
+ * Only the "+" navigates. The tile itself is presentation, so hovering it
+ * reveals the detail without arming a click target the whole card wide.
  *
  * The row reserves the expanded height, so growing a card never reflows the
  * ones beside it.
@@ -30,28 +32,18 @@ export function ProductCard({
   product,
   active,
   onHover,
-  onSelect,
 }: {
   product: Product;
   active: boolean;
   onHover: () => void;
-  onSelect: () => void;
 }) {
-  const reduced = useReducedMotion();
-
   return (
     <li className="lg:h-[271px]">
-      <Link
-        href={product.href}
+      <div
         onMouseEnter={onHover}
-        onFocus={onHover}
-        onClick={onSelect}
-        aria-current={active ? "true" : undefined}
         className={cn(
-          "product-card group/product relative block overflow-hidden rounded-[20px] p-[22px_20px] lg:h-[132px] lg:p-[22px_26px]",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+          "product-card group/product relative overflow-hidden rounded-[20px] p-[22px_20px] lg:h-[132px] lg:p-[22px_26px]",
           active && "is-active",
-          !reduced && "hover:-translate-y-0.5",
         )}
       >
         {/* Icon sits on a common baseline: the frame's glyphs vary in height. */}
@@ -76,13 +68,20 @@ export function ProductCard({
           {product.body}
         </p>
 
-        <span
-          aria-hidden
-          className="product-card__plus absolute right-[24px] bottom-[22px] grid size-9 place-items-center rounded-full bg-brand text-[22px] leading-none font-medium text-white"
+        <Link
+          href={product.href}
+          onFocus={onHover}
+          className={cn(
+            "product-card__plus absolute right-[24px] bottom-[22px] grid size-9 place-items-center rounded-full bg-brand",
+            "text-[22px] leading-none font-medium text-white",
+            "hover:scale-105 motion-reduce:transform-none",
+            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+          )}
         >
-          +
-        </span>
-      </Link>
+          <span aria-hidden>+</span>
+          <span className="sr-only">Explore {product.title}</span>
+        </Link>
+      </div>
     </li>
   );
 }

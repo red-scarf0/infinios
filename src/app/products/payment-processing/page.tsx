@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 
-import { ProductComingSoon } from "@/components/products/coming-soon";
+import { ProductDetailPage } from "@/components/products/detail/product-detail-page";
+import { paymentProcessing } from "@/data/products";
 
-export const metadata: Metadata = {
-  title: "Payment Processing",
-};
+export const metadata: Metadata = paymentProcessing.metadata;
 
 export default function PaymentProcessingPage() {
-  return <ProductComingSoon title="Payment Processing" />;
+  return <ProductDetailPage product={paymentProcessing} />;
 }

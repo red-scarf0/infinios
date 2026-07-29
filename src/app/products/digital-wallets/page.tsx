@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 
-import { ProductComingSoon } from "@/components/products/coming-soon";
+import { ProductDetailPage } from "@/components/products/detail/product-detail-page";
+import { digitalWallets } from "@/data/products";
 
-export const metadata: Metadata = {
-  title: "Digital Wallets",
-};
+export const metadata: Metadata = digitalWallets.metadata;
 
 export default function DigitalWalletsPage() {
-  return <ProductComingSoon title="Digital Wallets" />;
+  return <ProductDetailPage product={digitalWallets} />;
 }

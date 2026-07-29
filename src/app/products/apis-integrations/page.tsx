@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 
-import { ProductComingSoon } from "@/components/products/coming-soon";
+import { ProductDetailPage } from "@/components/products/detail/product-detail-page";
+import { apisIntegrations } from "@/data/products";
 
-export const metadata: Metadata = {
-  title: "APIs & Integrations",
-};
+export const metadata: Metadata = apisIntegrations.metadata;
 
 export default function ApisIntegrationsPage() {
-  return <ProductComingSoon title="APIs & Integrations" />;
+  return <ProductDetailPage product={apisIntegrations} />;
 }

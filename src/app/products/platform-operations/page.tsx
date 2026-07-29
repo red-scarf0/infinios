@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 
-import { ProductComingSoon } from "@/components/products/coming-soon";
+import { ProductDetailPage } from "@/components/products/detail/product-detail-page";
+import { platformOperations } from "@/data/products";
 
-export const metadata: Metadata = {
-  title: "Platform & Operations",
-};
+export const metadata: Metadata = platformOperations.metadata;
 
 export default function PlatformOperationsPage() {
-  return <ProductComingSoon title="Platform & Operations" />;
+  return <ProductDetailPage product={platformOperations} />;
 }

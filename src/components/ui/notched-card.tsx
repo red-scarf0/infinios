@@ -15,14 +15,17 @@ export function NotchedCard({
   body,
   tone = "brand",
   className,
+  contentClassName,
 }: {
   title: React.ReactNode;
   body: React.ReactNode;
   tone?: "brand" | "navy";
   className?: string;
+  /** Padding override — the product pages sit on a shorter 213px card. */
+  contentClassName?: string;
 }) {
   const line = tone === "brand" ? "border-[#1156a3]" : "border-navy";
-  const bar = tone === "brand" ? "bg-[#1156a3]" : "bg-navy";
+  const barTone = tone === "brand" ? "bg-[#1156a3]" : "bg-navy";
   const heading = tone === "brand" ? "text-[#1156a3]" : "text-navy";
 
   return (
@@ -38,7 +41,7 @@ export function NotchedCard({
         aria-hidden
         className={cn(
           "absolute -top-[2px] left-[33px] z-10 h-[7px] w-[80px] lg:h-[11px] lg:w-[109px]",
-          bar,
+          barTone,
         )}
       />
       <div
@@ -47,6 +50,7 @@ export function NotchedCard({
           "transition-shadow duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           "group-hover/notch:shadow-[0_18px_40px_-16px_rgba(17,86,163,0.35)] motion-reduce:shadow-none",
           line,
+          contentClassName,
         )}
       >
         <h3

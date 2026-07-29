@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
+import { cn } from "@/lib/utils";
 
 /**
  * Full-bleed closing banner — 1778x488, r=64, shared by the homepage and the
@@ -19,6 +20,7 @@ export function CtaBanner({
   paddingBottom = "60px",
   bodyGap = "6px",
   spacingBottom = "122px",
+  headingClassName,
 }: {
   heading: React.ReactNode;
   body: React.ReactNode;
@@ -33,6 +35,8 @@ export function CtaBanner({
   bodyGap?: string;
   /** Gap between the plate and the footer. */
   spacingBottom?: string;
+  /** Heading scale. The product detail frames drop it from 50px to 36px. */
+  headingClassName?: string;
 }) {
   return (
     <section
@@ -58,7 +62,10 @@ export function CtaBanner({
           >
             <RevealItem>
               <h2
-                className="text-[26px] leading-[1.1488] font-semibold text-white sm:text-[34px] lg:text-[50px]"
+                className={cn(
+                  "text-[26px] leading-[1.1488] font-semibold text-white sm:text-[34px] lg:text-[50px]",
+                  headingClassName,
+                )}
                 style={{ maxWidth: headingMeasure }}
               >
                 {heading}
