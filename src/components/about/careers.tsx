@@ -32,7 +32,10 @@ const PRINCIPLES = [
  */
 export function AboutCareers() {
   return (
-    <section className="bg-white pb-16 lg:pb-[242px]">
+    <section
+      id="careers"
+      className="scroll-mt-[120px] bg-white pb-16 lg:pb-[242px]"
+    >
       <div
         className="relative mx-[clamp(16px,4.22vw,81px)] overflow-hidden rounded-t-[72px] rounded-b-[48px] lg:rounded-t-[241px] lg:rounded-b-[110px]"
         style={{
@@ -79,7 +82,7 @@ export function AboutCareers() {
               financial services to solve real payment challenges.
             </p>
             <Button
-              href="/careers"
+              href="#careers"
               variant="light"
               className="mt-6 h-12 w-full px-6 text-[15px] sm:w-[314px] lg:mt-[30px] lg:mb-[41px] lg:text-[18px]"
             >

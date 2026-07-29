@@ -14,7 +14,7 @@ export const platformOperations: ProductDetail = {
     heading: "One place to run your payment programme.",
     body: "Manage programmes, users, transactions, controls, reporting and operational workflows through a centralised environment.",
     image: "/images/products/platform-operations-hero.jpg",
-    primaryCta: { label: "Request a Platform Demo", href: "/demo" },
+    primaryCta: { label: "Request a Platform Demo", href: "/contact" },
     secondaryCta: { label: "Speak to Our Team", href: "/contact" },
   },
 
@@ -157,6 +157,6 @@ export const platformOperations: ProductDetail = {
     heading: "See how your programme would operate day to day.",
     body: "Request a focused platform discussion based on your teams, workflows and reporting requirements.",
     ctaLabel: "Request a Platform Demo",
-    ctaHref: "/demo",
+    ctaHref: "/contact",
   },
 };

@@ -16,6 +16,7 @@ export function NotchedCard({
   tone = "brand",
   className,
   contentClassName,
+  contentStyle,
 }: {
   title: React.ReactNode;
   body: React.ReactNode;
@@ -23,6 +24,8 @@ export function NotchedCard({
   className?: string;
   /** Padding override — the product pages sit on a shorter 213px card. */
   contentClassName?: string;
+  /** Frame measures, e.g. the card height a detail grid was drawn at. */
+  contentStyle?: React.CSSProperties;
 }) {
   const line = tone === "brand" ? "border-[#1156a3]" : "border-navy";
   const barTone = tone === "brand" ? "bg-[#1156a3]" : "bg-navy";
@@ -45,6 +48,7 @@ export function NotchedCard({
         )}
       />
       <div
+        style={contentStyle}
         className={cn(
           "h-full rounded-tr-[40px] border p-6 lg:rounded-tr-[60px] lg:p-[41px_30px_37px_33px]",
           "transition-shadow duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",

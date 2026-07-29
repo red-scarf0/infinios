@@ -14,6 +14,8 @@ export function CtaBanner({
   body,
   ctaLabel,
   ctaHref,
+  secondaryCtaLabel,
+  secondaryCtaHref,
   headingMeasure = "678px",
   bodyMeasure = "348px",
   paddingTop = "166px",
@@ -21,11 +23,15 @@ export function CtaBanner({
   bodyGap = "6px",
   spacingBottom = "122px",
   headingClassName,
+  image = "/images/cta-banner.png",
 }: {
   heading: React.ReactNode;
   body: React.ReactNode;
   ctaLabel: string;
   ctaHref: string;
+  /** The travel frame closes on two buttons rather than one. */
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
   /** Heading column width at desktop, straight from the frame. */
   headingMeasure?: string;
   bodyMeasure?: string;
@@ -37,6 +43,11 @@ export function CtaBanner({
   spacingBottom?: string;
   /** Heading scale. The product detail frames drop it from 50px to 36px. */
   headingClassName?: string;
+  /**
+   * Plate artwork. The homepage, About and solutions frames share the waves;
+   * the solution detail frames use arcs, and b2b and wallet use the slats.
+   */
+  image?: string;
 }) {
   return (
     <section
@@ -47,7 +58,7 @@ export function CtaBanner({
       <div className="w-full px-5 min-[1920px]:px-[62px] sm:px-8 lg:px-12">
         <div className="relative isolate overflow-hidden rounded-[28px] lg:rounded-[64px]">
           <Image
-            src="/images/cta-banner.png"
+            src={image}
             alt=""
             fill
             aria-hidden
@@ -78,7 +89,15 @@ export function CtaBanner({
               </p>
             </RevealItem>
 
-            <RevealItem className="lg:justify-self-end lg:pb-[7px]">
+            <RevealItem className="flex flex-wrap gap-3 lg:justify-self-end lg:pb-[7px]">
+              {secondaryCtaLabel && secondaryCtaHref ? (
+                <Button
+                  href={secondaryCtaHref}
+                  className="h-[43px] w-full px-6 text-[16px] sm:w-[230px]"
+                >
+                  {secondaryCtaLabel}
+                </Button>
+              ) : null}
               <Button
                 href={ctaHref}
                 className="h-[43px] w-full px-6 text-[16px] sm:w-[230px]"

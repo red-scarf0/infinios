@@ -15,7 +15,7 @@ export const apisIntegrations: ProductDetail = {
     body: "Integrate issuing, processing, wallet and operational capabilities through secure APIs, webhooks and enterprise integration frameworks.",
     image: "/images/products/apis-integrations-hero.jpg",
     primaryCta: { label: "Discuss an Integration", href: "/contact" },
-    secondaryCta: { label: "Request a Demo", href: "/demo" },
+    secondaryCta: { label: "Request a Demo", href: "/contact" },
   },
 
   overview: {

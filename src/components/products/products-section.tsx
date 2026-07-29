@@ -1,11 +1,12 @@
 import { SectionLabel } from "@/components/ui/section-label";
 import { ColorFlowText } from "@/components/ui/color-flow-text";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
-import type { Product } from "./product-card";
+import {
+  CapabilityCardRow,
+  type CapabilityCard,
+} from "@/components/shared/capability-cards";
 
-import { ProductGrid } from "./product-grid";
-
-const PRODUCTS: Product[] = [
+const PRODUCTS: CapabilityCard[] = [
   {
     title: "Card Issuing",
     body: "Launch and manage virtual and physical cards with configurable rules and lifecycle controls.",
@@ -72,7 +73,9 @@ export function ProductsSection() {
         }}
       />
 
-      <div className="relative px-5 pt-14 sm:px-8 lg:pt-[171px] lg:pr-[189px] lg:pl-[203px]">
+      {/* Fluid gutter: the frame's 203px inset at 1920, the page gutter below
+          it, so the card row is not squeezed on a tablet. */}
+      <div className="relative px-5 pt-14 sm:px-8 lg:px-[max(3rem,calc((100vw-1514px)/2))] lg:pt-[171px]">
         <Reveal className="lg:ml-[8px]">
           <SectionLabel>INFINIOS PRODUCTS</SectionLabel>
         </Reveal>
@@ -101,7 +104,7 @@ export function ProductsSection() {
         </Reveal>
 
         <Reveal className="mt-12 lg:mt-[31px]">
-          <ProductGrid products={PRODUCTS} />
+          <CapabilityCardRow items={PRODUCTS} />
         </Reveal>
       </div>
     </section>

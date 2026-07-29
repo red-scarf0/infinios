@@ -39,7 +39,10 @@ const CARDS: PlatformCardData[] = [
 
 export function Platform() {
   return (
-    <section className="relative -mt-px rounded-t-[40px] bg-white pt-14 pb-16 lg:rounded-t-[89px] lg:pt-[114px] lg:pb-[94px]">
+    <section
+      id="platform"
+      className="relative -mt-px scroll-mt-[120px] rounded-t-[40px] bg-white pt-14 pb-16 lg:rounded-t-[89px] lg:pt-[114px] lg:pb-[94px]"
+    >
       <Container>
         <Reveal>
           <SectionLabel>THE INFINIOS PLATFORM</SectionLabel>
@@ -78,7 +81,7 @@ export function Platform() {
       {/* The CTA is centred on the card rail, not the page: x=1032 at 1920. */}
       <Container className="mt-10 flex justify-center lg:mt-[33px] 2xl:justify-start">
         <Button
-          href="/platform"
+          href="#platform"
           className="h-[46px] w-full px-6 text-[16px] sm:w-[250px] lg:text-[18px] 2xl:ml-[824px]"
         >
           Explore the Platform

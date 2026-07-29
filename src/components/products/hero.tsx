@@ -48,6 +48,9 @@ export function ProductsHero() {
               >
                 Explore Products
               </Button>
+              {/* TODO: /network has no page yet — no frame for it exists in
+              the Final Figma page. Left pointing at the intended route
+              so it lights up the moment that page lands. */}
               <Button
                 href="/network"
                 variant="outline"

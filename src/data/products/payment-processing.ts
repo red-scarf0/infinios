@@ -15,7 +15,7 @@ export const paymentProcessing: ProductDetail = {
     body: "Authorise, route, settle and reconcile transactions through infrastructure designed for reliable, high-volume payment operations.",
     image: "/images/products/payment-processing-hero.jpg",
     primaryCta: { label: "Explore Processing", href: "#capabilities" },
-    secondaryCta: { label: "Request a Demo", href: "/demo" },
+    secondaryCta: { label: "Request a Demo", href: "/contact" },
   },
 
   overview: {
@@ -157,6 +157,6 @@ export const paymentProcessing: ProductDetail = {
     heading: "Strengthen the infrastructure behind every transaction.",
     body: "Discuss your channels, transaction flows and operational requirements with the INFINIOS team.",
     ctaLabel: "Request a Demo",
-    ctaHref: "/demo",
+    ctaHref: "/contact",
   },
 };

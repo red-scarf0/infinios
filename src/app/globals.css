@@ -66,18 +66,43 @@
 }
 
 /*
- * Product capability card. Default is the light 132px-tall card; hover and
- * the clicked active state expand to the 271px blue card from the frame's
- * "hover state" group. Height is transitioned rather than the row reflowing:
- * each card's <li> already reserves the expanded height.
+ * Product and solution capability card. Resting state is the light card from
+ * the frame; hover and the active state expand to the #B2CDFF card from the
+ * frame's "hover state" group.
+ *
+ * No height is ever fixed. The frame's heights are floors (`min-height`), and
+ * the reveal collapses by animating its grid track from 0fr to 1fr rather than
+ * by cropping — so the copy can run to as many lines as the card's width
+ * demands and is never cut off. Each card's <li> reserves the expanded height,
+ * so growing one card reflows nothing beside it.
+ *
+ * The frames pack the resting card tighter at the top than the expanded one,
+ * so the top padding is part of the transition.
  */
 .product-card {
   background-color: #ebf1fd;
+  padding-top: var(--card-pt, 22px);
+  padding-bottom: var(--card-pb, 22px);
   transition:
     background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    height 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding-top 300ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card__reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * The industries frame holds its glyph still and lifts the title as the card
+ * opens, so this gap is part of the transition too.
+ */
+.product-card__title {
+  margin-top: var(--title-gap, 7px);
+  transition: margin-top 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .product-card__body,
@@ -93,10 +118,23 @@
   .product-card:hover,
   .product-card:focus-within,
   .product-card.is-active {
-    height: 271px;
+    min-height: 271px;
+    padding-top: var(--card-pt-open, var(--card-pt, 22px));
     background-color: #b2cdff;
     box-shadow: 0 22px 44px -20px rgba(8, 84, 165, 0.45);
     transform: translateY(-2px);
+  }
+
+  .product-card:hover .product-card__reveal,
+  .product-card:focus-within .product-card__reveal,
+  .product-card.is-active .product-card__reveal {
+    grid-template-rows: 1fr;
+  }
+
+  .product-card:hover .product-card__title,
+  .product-card:focus-within .product-card__title,
+  .product-card.is-active .product-card__title {
+    margin-top: var(--title-gap-open, var(--title-gap, 7px));
   }
 }
 
@@ -113,6 +151,18 @@
 
 /* Below lg the cards stack and always show their full content. */
 @media (max-width: 1023px) {
+  .product-card {
+    padding-top: var(--card-pt-open, var(--card-pt, 22px));
+  }
+
+  .product-card__title {
+    margin-top: var(--title-gap-open, var(--title-gap, 7px));
+  }
+
+  .product-card__reveal {
+    grid-template-rows: 1fr;
+  }
+
   .product-card__body,
   .product-card__plus {
     opacity: 1;

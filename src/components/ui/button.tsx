@@ -31,19 +31,27 @@ export function Button({
   children,
   variant = "gradient",
   className,
+  style,
   arrow = true,
+  "aria-current": ariaCurrent,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: ButtonVariant;
   className?: string;
+  /** Frame-specific measures, e.g. the detail heroes' CTA widths. */
+  style?: React.CSSProperties;
   arrow?: boolean;
+  /** Set when the button points at the page you are already on. */
+  "aria-current"?: "page";
 }) {
   const tone = arrow ? ARROW_TONE[variant] : null;
 
   return (
     <Link
       href={href}
+      style={style}
+      aria-current={ariaCurrent}
       className={cn(
         "group/btn inline-flex items-center justify-center gap-3 font-medium whitespace-nowrap",
         "transition-[transform,opacity,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",

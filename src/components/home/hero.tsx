@@ -79,12 +79,15 @@ export function Hero() {
               </p>
               <div className="mt-8 flex flex-wrap gap-4 lg:mt-[38px] lg:gap-[20px]">
                 <Button
-                  href="/demo"
+                  href="/contact"
                   variant="light"
                   className="h-12 w-full px-7 text-[16px] sm:w-[259px] lg:text-[18px]"
                 >
                   Request a Demo
                 </Button>
+                {/* TODO: /network has no page yet — no frame for it exists in
+                the Final Figma page. Left pointing at the intended route
+                so it lights up the moment that page lands. */}
                 <Button
                   href="/network"
                   variant="outline"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,12 +18,22 @@ const NAV_LINKS = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  /**
+   * Marks the section you are in — including its detail routes, so
+   * /products/card-issuing still lights "Products". Exposed through
+   * `aria-current` alone: the frame draws no active treatment, so this
+   * changes nothing visually.
+   */
+  const isCurrent = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header className="absolute inset-x-0 top-4 z-50 px-4 sm:px-6 lg:top-[62px] lg:px-[39px]">
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-full max-w-[1841px] flex-col rounded-[24px] bg-white px-5 py-4 shadow-sm lg:h-[106px] lg:flex-row lg:items-center lg:px-[65px] lg:py-0"
+        className="mx-auto flex w-full max-w-[1841px] flex-col rounded-[24px] bg-white px-5 py-4 shadow-sm xl:h-[106px] xl:flex-row xl:items-center xl:px-[32px] xl:py-0 2xl:px-[65px]"
       >
         <div className="flex items-center justify-between lg:flex-none">
           <Link href="/" aria-label="INFINIOS home" className="shrink-0">
@@ -32,7 +43,7 @@ export function SiteHeader() {
               width={273}
               height={45}
               priority
-              className="h-[30px] w-auto lg:h-[44px]"
+              className="h-[30px] w-auto xl:h-[36px] 2xl:h-[44px]"
             />
           </Link>
 
@@ -41,7 +52,7 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="primary-menu"
-            className="-mr-2 flex size-11 items-center justify-center rounded-lg text-navy-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand lg:hidden"
+            className="-mr-2 flex size-11 items-center justify-center rounded-lg text-navy-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand xl:hidden"
           >
             <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
             <span aria-hidden className="relative block h-4 w-6">
@@ -70,17 +81,18 @@ export function SiteHeader() {
         <div
           id="primary-menu"
           className={cn(
-            "flex-1 flex-col gap-6 pt-6 pb-4 lg:flex lg:flex-row lg:items-center lg:justify-center lg:gap-[50px] lg:p-0",
+            "flex-1 flex-col gap-6 pt-6 pb-4 xl:flex xl:flex-row xl:items-center xl:justify-center xl:gap-[24px] xl:p-0 2xl:gap-[50px]",
             open ? "flex" : "hidden",
           )}
         >
-          <ul className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-[50px]">
+          <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-[24px] 2xl:gap-[50px]">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-sm text-[18px] font-semibold text-navy-ink transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand lg:text-[20px]"
+                  aria-current={isCurrent(link.href) ? "page" : undefined}
+                  className="rounded-sm text-[18px] font-semibold text-navy-ink transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand xl:text-[18px] 2xl:text-[20px]"
                 >
                   {link.label}
                 </Link>
@@ -88,17 +100,18 @@ export function SiteHeader() {
             ))}
           </ul>
 
-          <div className="flex flex-wrap items-center gap-3 lg:hidden">
+          <div className="flex flex-wrap items-center gap-3 xl:hidden">
             <Button
               href="/contact"
               variant="ghost"
               arrow={false}
+              aria-current={isCurrent("/contact") ? "page" : undefined}
               className="h-9 px-5 text-[16px]"
             >
               Contact
             </Button>
             <Button
-              href="/demo"
+              href="/contact"
               variant="solid"
               arrow={false}
               className="h-9 px-5 text-[16px]"
@@ -108,17 +121,18 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="hidden shrink-0 items-center gap-[14px] lg:flex">
+        <div className="hidden shrink-0 items-center gap-[14px] xl:flex">
           <Button
             href="/contact"
             variant="ghost"
             arrow={false}
+            aria-current={isCurrent("/contact") ? "page" : undefined}
             className="h-8 w-[101px] text-[16px]"
           >
             Contact
           </Button>
           <Button
-            href="/demo"
+            href="/contact"
             variant="solid"
             arrow={false}
             className="h-8 w-[167px] text-[16px]"

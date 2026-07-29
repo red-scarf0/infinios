@@ -4,20 +4,30 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
-export const HERO_POSTER = "/images/hero-poster.png";
-
 /**
- * Hero background video sources, best format first. Drop the files in
- * `public/videos/` and they are picked up with no code change; if they are
- * absent (or fail to decode) the component falls back to the poster still.
+ * The still, in two weights.
+ *
+ * `HERO_POSTER` is the video's own frame 0 at its native 864x496, 37KB — the
+ * browser upscales it exactly as it upscales the video, so the handoff into
+ * playback is seamless, and it is light enough to be on screen before the
+ * video's first frame can decode. `HERO_STILL` is the full 1920x1116 original,
+ * used only where the image is the permanent backdrop rather than a placeholder
+ * and next/image can optimise it.
  */
-export const HERO_VIDEO_SOURCES = [
-  { src: "/videos/hero.webm", type: "video/webm" },
-  { src: "/videos/hero.mp4", type: "video/mp4" },
-] as const;
+export const HERO_POSTER = "/images/hero-poster.jpg";
+export const HERO_STILL = "/images/hero-poster.png";
+
+/** The designer's final hero backdrop — 864x496 H.264, a 5s loop. */
+export const HERO_VIDEO_SRC = "/videos/hero.mp4";
 
 /**
  * Decorative hero backdrop.
+ *
+ * The frame paints this as a VIDEO fill on a 1944x1116 rect with
+ * `scaleMode: FILL` and an identity transform — cover, centred — and the
+ * delivered file carries that rect's exact 1.7419 aspect ratio, so
+ * `object-cover object-center` reproduces the composition with nothing
+ * stretched and the centre glass shape held in frame at every width.
  *
  * Renders the looping video when it can play, and the poster still otherwise —
  * covering three cases the design has to survive: the file is missing, the
@@ -33,17 +43,18 @@ export function HeroMedia() {
     const video = videoRef.current;
     if (!video || reduced) return;
 
-    // Autoplay can be refused (low-power mode, data saver, engagement rules).
-    // The poster stays visible in that case, which is the designed fallback.
+    // React applies `muted` as a property, which on a hydrated element can
+    // land after autoplay has already been adjudicated — Safari then refuses
+    // it as unmuted. Assert it before asking to play.
+    video.muted = true;
+
+    // Autoplay can still be refused (low-power mode, data saver, engagement
+    // rules). The poster stays visible in that case, the designed fallback.
     const attempt = video.play();
     if (attempt) attempt.catch(() => {});
   }, [reduced]);
 
-  /**
-   * `error` fires per `<source>`, so one unsupported codec is not a failure —
-   * Safari rejects the WebM and then plays the MP4. Only swap to the still
-   * once the element has exhausted every candidate.
-   */
+  /** Nothing left to decode — swap to the still. */
   const handleError = () => {
     const video = videoRef.current;
     if (!video || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
@@ -55,12 +66,12 @@ export function HeroMedia() {
   if (reduced || unavailable) {
     return (
       <Image
-        src={HERO_POSTER}
+        src={HERO_STILL}
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="object-cover object-center"
       />
     );
   }
@@ -68,23 +79,20 @@ export function HeroMedia() {
   return (
     <video
       ref={videoRef}
+      src={HERO_VIDEO_SRC}
       autoPlay
       muted
       loop
       playsInline
       controls={false}
       disablePictureInPicture
-      // `metadata` keeps the hero off the critical path; the poster carries
-      // first paint and playback starts as soon as enough data has buffered.
-      preload="metadata"
+      // The hero is above the fold and has to be moving on arrival, so the
+      // 1.2MB file is fetched eagerly rather than left to `metadata`.
+      preload="auto"
       poster={HERO_POSTER}
       aria-hidden
       onError={handleError}
-      className="size-full object-cover"
-    >
-      {HERO_VIDEO_SOURCES.map((source) => (
-        <source key={source.src} src={source.src} type={source.type} />
-      ))}
-    </video>
+      className="size-full object-cover object-center"
+    />
   );
 }
