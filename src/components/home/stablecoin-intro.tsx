@@ -32,27 +32,37 @@ export function StablecoinIntro() {
             </h2>
 
             {/*
-              Two-tone paragraph — the only other one in the frame. The grey
-              clause sweeps to brand blue on hover.
+              Unlike every other two-tone paragraph on the site this block has
+              two of them, so `group/flow` goes on a wrapper rather than on one
+              paragraph — hovering anywhere in the copy sweeps both greys to
+              brand blue together, off the one `.color-flow` transition. The
+              wrapper is unstyled, so the paragraph margins collapse through it
+              exactly as before.
             */}
-            <p className="group/flow mt-6 text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[48px] lg:text-[40px]">
-              <span className="text-brand">
-                Financial institutions, fintechs and payment providers are
-                increasingly exploring stablecoins to improve settlement
-                efficiency,
-              </span>
-              <ColorFlowText from="#b1b1b1">
-                {" "}
-                reduce friction and enable new payment experiences.
-              </ColorFlowText>
-            </p>
+            <div className="group/flow">
+              <p className="mt-6 text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[48px] lg:text-[40px]">
+                <span className="text-brand">
+                  Financial institutions, fintechs and payment providers are
+                  increasingly exploring stablecoins to improve settlement
+                  efficiency,
+                </span>
+                <ColorFlowText from="#b1b1b1">
+                  {" "}
+                  reduce friction and enable new payment experiences.
+                </ColorFlowText>
+              </p>
 
-            <p className="mt-6 text-[18px] leading-[1.1488] text-muted sm:text-[26px] lg:mt-[55px] lg:text-[40px]">
-              INFINIOS provides the infrastructure, operational expertise and
-              integration capabilities required to support stablecoin-enabled
-              payment ecosystems with enterprise-grade controls, reporting and
-              governance.
-            </p>
+              {/* `--color-muted` is #b1b1b1 — the same grey the clause above
+                  rests at, so this reads identically at rest. */}
+              <p className="mt-6 text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[55px] lg:text-[40px]">
+                <ColorFlowText from="#b1b1b1">
+                  INFINIOS provides the infrastructure, operational expertise
+                  and integration capabilities required to support
+                  stablecoin-enabled payment ecosystems with enterprise-grade
+                  controls, reporting and governance.
+                </ColorFlowText>
+              </p>
+            </div>
           </RevealItem>
 
           <RevealItem className="order-first 2xl:order-none 2xl:-mt-[113px]">
