@@ -71,18 +71,22 @@ export function Platform() {
       </Container>
 
       {/*
-        The rail spans x=75..1848 in the frame — inset ~75px from each page
-        edge, wider than the text column. It scrolls as a seamless marquee.
+        Full-bleed rail. The frame draws the row inset 75px from each page edge
+        (x=75..1848), but on a looping marquee that inset belongs to the scroll
+        viewport rather than the track, so it clipped the rail short of the
+        screen: at 1440 the next card could not peek in and 56px of dead white
+        sat at the right. Running edge to edge keeps the card rhythm continuous
+        — card size and the 39px spacing are untouched.
       */}
-      <div className="mx-[clamp(20px,3.906vw,75px)] mt-10 lg:mt-[72px]">
+      <div className="mt-10 lg:mt-[72px]">
         <PlatformCarousel cards={CARDS} />
       </div>
 
-      {/* The CTA is centred on the card rail, not the page: x=1032 at 1920. */}
-      <Container className="mt-10 flex justify-center lg:mt-[33px] 2xl:justify-start">
+      {/* Centred on the section, which is now also the rail's centre. */}
+      <Container className="mt-10 flex justify-center lg:mt-[33px]">
         <Button
           href="#platform"
-          className="h-[46px] w-full px-6 text-[16px] sm:w-[250px] lg:text-[18px] 2xl:ml-[824px]"
+          className="h-[46px] w-full px-6 text-[16px] sm:w-[250px] lg:text-[18px]"
         >
           Explore the Platform
         </Button>

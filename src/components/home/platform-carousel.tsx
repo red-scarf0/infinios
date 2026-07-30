@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/platform-card";
 
 /** Auto-scroll speed in CSS pixels per second. */
-const SPEED = 42;
+const SPEED = 53;
 /** How long to wait after a manual swipe before auto-scroll resumes. */
 const RESUME_DELAY = 1200;
 
@@ -27,6 +27,7 @@ const RESUME_DELAY = 1200;
  */
 export function PlatformCarousel({ cards }: { cards: PlatformCardData[] }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const offset = useRef(0);
   const [paused, setPaused] = useState(false);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduced = useReducedMotion();
@@ -45,11 +46,19 @@ export function PlatformCarousel({ cards }: { cards: PlatformCardData[] }) {
     const half = el.scrollWidth / 2;
     if (half <= 0) return;
 
+    // Carry the position as a float of our own. Accumulating onto `scrollLeft`
+    // instead re-reads a value the browser has rounded, and the rounding does
+    // not cancel out: at this speed it measured 56.5px/s against the 53 asked
+    // for, and the error moves with the frame rate. Off our own accumulator it
+    // measures 52.8. Re-sync when something else moves the scroller (a swipe,
+    // a wheel, focus), which is the only way the two can diverge.
+    if (Math.abs(offset.current - el.scrollLeft) > 2)
+      offset.current = el.scrollLeft;
+
     // delta can spike after a background tab; clamp so we never jump.
-    const step = (SPEED * Math.min(delta, 50)) / 1000;
-    let next = el.scrollLeft + step;
-    if (next >= half) next -= half;
-    el.scrollLeft = next;
+    offset.current += (SPEED * Math.min(delta, 50)) / 1000;
+    if (offset.current >= half) offset.current -= half;
+    el.scrollLeft = offset.current;
   });
 
   return (

@@ -109,6 +109,10 @@ export function TrustCards() {
               className={cn(
                 "2xl:absolute",
                 card.position,
+                // The three cards are staggered diagonally and overlap by
+                // design, so a lifted card has to come to the front or its
+                // raised edge slides under its neighbour.
+                "2xl:hover:z-10",
                 index === 1 && "lg:ml-auto lg:max-w-[80%] 2xl:max-w-none",
                 index === 2 && "lg:ml-[10%] 2xl:ml-0",
               )}
@@ -120,8 +124,19 @@ export function TrustCards() {
                 <article
                   className={cn(
                     "relative overflow-hidden rounded-[24px] border border-white/20 bg-white/18 p-7 shadow-[0_4px_4px_rgba(0,0,0,0.25)] backdrop-blur-md",
-                    "transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    "hover:scale-[1.02] hover:shadow-[0_22px_48px_-14px_rgba(0,0,0,0.45)]",
+                    // Transition `translate` and `scale`, not `transform`:
+                    // Tailwind v4 writes those as the independent CSS
+                    // properties, so a `transform` transition never matched
+                    // them and the old scale snapped in with no interpolation
+                    // at all — the "pop". Expo-out settles hard then coasts,
+                    // which reads as weight without overshooting into a bounce.
+                    "transition-[translate,scale,box-shadow] duration-[520ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    // Lift carries the movement; the 1.03 is just enough
+                    // parallax to sell depth. Neither is a layout property, so
+                    // the cards stay aligned and nothing reflows.
+                    "hover:-translate-y-[14px] hover:scale-[1.03]",
+                    "hover:shadow-[0_34px_70px_-18px_rgba(0,0,0,0.55),0_12px_24px_-14px_rgba(0,0,0,0.4)]",
+                    "motion-reduce:transition-none motion-reduce:hover:translate-none motion-reduce:hover:scale-100",
                     "lg:rounded-[31px] lg:p-10 2xl:h-[22.45vw] 2xl:w-[31.41vw] 2xl:p-0",
                   )}
                 >
