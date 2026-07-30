@@ -52,6 +52,19 @@ export type CapabilityCardMetrics = {
   bodyGap?: number;
   /** Row height reserved for the expanded card, so hovering reflows nothing. */
   reserve?: number;
+  /**
+   * Hold every title to one line by capping it at the frame's 24px and letting
+   * it shrink with the card when the card cannot seat that.
+   *
+   * The products frame draws five 300px cards whose longest title, "Platform &
+   * Operations", sets to exactly 255px — the full content width, with no slack.
+   * Our row is 1514px against the frame's 1530, so its cards come out at 297px
+   * and that title alone wraps, standing the last card 19px taller than the
+   * other four. Sizing the title off the card (which is a container) keeps all
+   * five the same height at every width, and the cap means it is never drawn
+   * larger than the frame.
+   */
+  fitTitle?: boolean;
 };
 
 /**
@@ -142,6 +155,7 @@ function CapabilityCardTile({
     titleAlign = "center",
     bodyGap = 18,
     reserve = 271,
+    fitTitle = false,
   } = metrics;
 
   return (
@@ -166,6 +180,8 @@ function CapabilityCardTile({
         }
         className={cn(
           "product-card group/product relative rounded-[20px] px-5 lg:min-h-[132px] lg:px-[26px]",
+          // The card becomes the container the title sizes itself against.
+          fitTitle && "@container",
           active && "is-active",
         )}
       >
@@ -190,6 +206,12 @@ function CapabilityCardTile({
           className={cn(
             "product-card__title flex flex-col text-[18px] leading-[1.1488] font-bold whitespace-pre-line text-brand lg:text-[24px]",
             titleAlign === "start" ? "justify-start" : "justify-center",
+            // 24px / 255px — the frame's size over its longest title — less a
+            // couple of percent so font-metric rounding cannot tip the line
+            // over. `cqw` is a share of the container's *content* box, so the
+            // padding is already out of it. Capped at 24px, so a card wide
+            // enough for the frame's setting is given exactly that.
+            fitTitle && "lg:text-[min(24px,calc(100cqw*0.0923))]",
           )}
           style={{ minHeight: titleSlot || undefined }}
         >

@@ -104,7 +104,9 @@ export function ProductsSection() {
         </Reveal>
 
         <Reveal className="mt-12 lg:mt-[31px]">
-          <CapabilityCardRow items={PRODUCTS} />
+          {/* `fitTitle` keeps "Platform & Operations" on one line, so all five
+              cards stand the same height. See the metric for why. */}
+          <CapabilityCardRow items={PRODUCTS} metrics={{ fitTitle: true }} />
         </Reveal>
       </div>
     </section>
