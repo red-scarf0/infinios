@@ -85,11 +85,10 @@ export function Hero() {
                 >
                   Request a Demo
                 </Button>
-                {/* TODO: /network has no page yet — no frame for it exists in
-                the Final Figma page. Left pointing at the intended route
-                so it lights up the moment that page lands. */}
+                {/* Points at the About page, which is where the network story
+                    lives; `/about` is the route the header and footer use. */}
                 <Button
-                  href="/network"
+                  href="/about"
                   variant="outline"
                   className="h-12 w-full px-7 text-[16px] sm:w-[259px] lg:text-[18px]"
                 >

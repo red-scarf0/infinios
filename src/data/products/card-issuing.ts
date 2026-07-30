@@ -15,9 +15,9 @@ export const cardIssuing: ProductDetail = {
     body: "Issue virtual and physical cards, configure how they can be used and manage every stage of the card lifecycle through connected infrastructure.",
     image: "/images/products/card-issuing-hero.jpg",
     primaryCta: { label: "Discuss a Card Programme", href: "/contact" },
-    /* TODO: /network has no page yet — no frame for it exists in the Final
-       Figma page. Left pointing at the intended route. */
-    secondaryCta: { label: "Explore our Network", href: "/network" },
+    /* Points at the About page, which is where the network story lives;
+       `/about` is the route the header and footer use. */
+    secondaryCta: { label: "Explore our Network", href: "/about" },
   },
 
   overview: {
