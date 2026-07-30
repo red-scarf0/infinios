@@ -22,6 +22,7 @@ export const programmeLaunchBinSponsorship: SolutionDetail = {
     metrics: {
       minHeight: 1039,
       paddingTop: 183,
+      paddingTopDesktop: 263,
       paddingBottom: 119,
       bodyGap: 1,
       ctaGap: 61,

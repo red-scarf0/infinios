@@ -22,6 +22,7 @@ export const paymentServiceProviders: IndustryDetail = {
     metrics: {
       minHeight: 1044,
       paddingTop: 205,
+      paddingTopDesktop: 285,
       paddingBottom: 124,
       bodyGap: 41,
       ctaGap: 21,

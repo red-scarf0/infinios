@@ -22,6 +22,7 @@ export const cardAsAService: SolutionDetail = {
     metrics: {
       minHeight: 1060,
       paddingTop: 210,
+      paddingTopDesktop: 255,
       paddingBottom: 140,
       bodyGap: 41,
       ctaGap: 21,

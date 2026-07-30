@@ -26,7 +26,7 @@ export type DetailPage = {
 };
 
 export type DetailHero = {
-  /** 64px brand-blue page name that sits above the statement. */
+  /** 64px #B2CDFF page name that sits above the statement. */
   eyebrow: string;
   heading: string;
   body: string;
@@ -37,6 +37,10 @@ export type DetailHero = {
   metrics: {
     minHeight: number;
     paddingTop: number;
+    /** Page-name top from xl up — the frame's y plus the header clearance. */
+    paddingTopDesktop: number;
+    /** Page-name inset from the content column, where the frame indents it. */
+    eyebrowIndent?: number;
     paddingBottom: number;
     bodyGap: number;
     ctaGap: number;

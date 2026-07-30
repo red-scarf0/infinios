@@ -22,6 +22,7 @@ export const banksFinancialInstitutions: IndustryDetail = {
     metrics: {
       minHeight: 1011,
       paddingTop: 205,
+      paddingTopDesktop: 285,
       paddingBottom: 91,
       bodyGap: 41,
       ctaGap: 21,

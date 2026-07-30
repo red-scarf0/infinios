@@ -22,6 +22,7 @@ export const enterpriseCardProgrammes: SolutionDetail = {
     metrics: {
       minHeight: 1034,
       paddingTop: 183,
+      paddingTopDesktop: 263,
       paddingBottom: 114,
       bodyGap: 1,
       ctaGap: 61,

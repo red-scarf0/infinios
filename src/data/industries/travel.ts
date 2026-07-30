@@ -22,6 +22,7 @@ export const travel: IndustryDetail = {
     metrics: {
       minHeight: 1034,
       paddingTop: 205,
+      paddingTopDesktop: 250,
       paddingBottom: 114,
       bodyGap: 41,
       ctaGap: 21,

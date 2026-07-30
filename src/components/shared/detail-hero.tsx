@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 
 export type DetailHeroContent = {
-  /** 64px brand-blue page name that sits above the statement. */
+  /** 64px #B2CDFF page name that sits above the statement. */
   eyebrow: string;
   heading: string;
   body: string;
@@ -25,6 +25,20 @@ export type DetailHeroContent = {
 export type DetailHeroMetrics = {
   minHeight?: number;
   paddingTop?: number;
+  /**
+   * Top of the page name once the full desktop header is on screen: that
+   * page's own page-name `y` in its 1657-wide frame, plus the header clearance
+   * the frame cannot express. Below xl the compact header already clears the
+   * title, so `paddingTop` is left to hold that case unchanged.
+   */
+  paddingTopDesktop?: number;
+  /**
+   * Page name inset from the content column. The frame sets the statement,
+   * copy and CTAs at x=171 on all fifteen pages but indents the page name to
+   * x=188 on six of them, so that 17px is carried per page rather than
+   * averaged away.
+   */
+  eyebrowIndent?: number;
   paddingBottom?: number;
   /** Statement to supporting copy. */
   bodyGap?: number;
@@ -36,12 +50,13 @@ export type DetailHeroMetrics = {
 };
 
 /**
- * Detail-page hero.
+ * Detail-page hero, behind every product, solution and industry detail route.
+ * The listing pages use `SplitHero` instead and are deliberately untouched.
  *
- * The frame is a single full-bleed plate: the page name sits high at 64px in
- * brand blue, and the statement, copy and two CTAs are anchored to the bottom
- * of the artwork. Everything between the two blocks is deliberate empty space,
- * so the middle stretches rather than the type scaling.
+ * The frame is a single full-bleed plate: the page name sits high at 64px, and
+ * the statement, copy and two CTAs are anchored to the bottom of the artwork.
+ * Everything between the two blocks is deliberate empty space, so the middle
+ * stretches rather than the type scaling.
  */
 export function DetailHero({
   hero,
@@ -55,6 +70,9 @@ export function DetailHero({
   const {
     minHeight = 1198,
     paddingTop = 204,
+    // The product frames' own page-name y (176) plus the header clearance.
+    paddingTopDesktop = 255,
+    eyebrowIndent = 0,
     paddingBottom = 132,
     bodyGap = 16,
     ctaGap = 46,
@@ -76,8 +94,22 @@ export function DetailHero({
         />
       </div>
 
+      {/*
+        The frame's own top padding applies from xl, which is exactly where
+        the full desktop header appears. The detail artboards draw no
+        navigation at all — their page name is measured from a bare plate top —
+        so taking their `y` literally left the title 3-8px under the header
+        bar, which ends at 168. Every frame that does draw the header sets its
+        first heading 82px below it (home: header bottom 168, heading 250), so
+        each page's `y` carries a 79px clearance on top, which lifts the
+        highest-placed title, 171, to that same 250 and keeps every page's own
+        offset relative to it.
+
+        Below xl the header is the compact one, which already clears the title
+        by 33-88px, so those widths keep `--hero-pt` and are left untouched.
+      */}
       <div
-        className="flex min-h-[640px] flex-col pt-[132px] pb-14 sm:min-h-[760px] lg:min-h-[var(--hero-min-h)] lg:pt-[var(--hero-pt)] lg:pb-[var(--hero-pb)]"
+        className="flex min-h-[640px] flex-col pt-[132px] pb-14 sm:min-h-[760px] lg:min-h-[var(--hero-min-h)] lg:pt-[var(--hero-pt)] lg:pb-[var(--hero-pb)] xl:pt-[var(--hero-pt-xl)]"
         style={
           {
             /* The frame's height at 1920, held as a ratio below it: these
@@ -85,13 +117,30 @@ export function DetailHero({
                narrower screen crops the artwork to a dark sliver. */
             "--hero-min-h": `clamp(700px, ${((minHeight / 1920) * 100).toFixed(2)}vw, ${minHeight}px)`,
             "--hero-pt": `${paddingTop}px`,
+            "--hero-pt-xl": `${paddingTopDesktop}px`,
             "--hero-pb": `${paddingBottom}px`,
           } as React.CSSProperties
         }
       >
         <Container>
           <Reveal trigger="mount" delay={0.1}>
-            <p className="text-[34px] leading-[1.097] font-semibold text-brand-button sm:text-[46px] lg:text-[64px]">
+            {/*
+              #B2CDFF, the frame's own fill on all fifteen detail pages —
+              verified per node against its text segments, so it is not a
+              group opacity or a stacked duplicate reading through.
+
+              Vertical position and indent both come from that page's own
+              frame, and both apply from xl where the frame's composition and
+              the full header do. Narrower widths keep the compact layout.
+            */}
+            <p
+              className="text-[34px] leading-[1.097] font-semibold text-[#b2cdff] sm:text-[46px] lg:text-[64px] xl:ml-[var(--eyebrow-indent)]"
+              style={
+                {
+                  "--eyebrow-indent": `${eyebrowIndent}px`,
+                } as React.CSSProperties
+              }
+            >
               {hero.eyebrow}
             </p>
           </Reveal>

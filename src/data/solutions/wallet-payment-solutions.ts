@@ -23,6 +23,9 @@ export const walletPaymentSolutions: SolutionDetail = {
     metrics: {
       minHeight: 1012,
       paddingTop: 175,
+      paddingTopDesktop: 255,
+      // This frame indents the page name to x=188; its siblings sit flush.
+      eyebrowIndent: 17,
       paddingBottom: 92,
       bodyGap: 41,
       ctaGap: 21,

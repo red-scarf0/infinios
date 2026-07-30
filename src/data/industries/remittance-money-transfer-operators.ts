@@ -25,6 +25,7 @@ export const remittanceMoneyTransferOperators: IndustryDetail = {
     metrics: {
       minHeight: 1013,
       paddingTop: 190,
+      paddingTopDesktop: 305,
       paddingBottom: 93,
       bodyGap: 41,
       ctaGap: 21,

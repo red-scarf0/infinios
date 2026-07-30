@@ -24,7 +24,7 @@ export type ProductDetail = {
   };
 
   hero: {
-    /** 64px brand-blue page name that sits above the statement. */
+    /** 64px #B2CDFF page name that sits above the statement. */
     eyebrow: string;
     heading: string;
     body: string;
