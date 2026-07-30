@@ -13,8 +13,11 @@ import { Reveal, RevealItem } from "@/components/motion/reveal";
  * glyph off-centre. `nudge` corrects each one by the measured offset between
  * its glyph's bounding box and its own centre — rasterised and read off the
  * alpha channel, as a percentage of the box so it holds at every breakpoint.
- * Fiat sits 3.6% low; wallet 1.4% right and 2.5% high; global 4.1% right and
+ * Fiat sits 3.6% low; wallet 1.4% right and 10.9% low; global 4.1% right and
  * 8.6% low. Stablecoin's glyph fills its box, so it needs nothing.
+ *
+ * Read the alpha bounds with an eye on stray marks: one icon ships a speck
+ * that inverts the sign of its offset (see the wallet below).
  */
 const STEPS = [
   {
@@ -39,7 +42,13 @@ const STEPS = [
     width: 178,
     height: 181,
     size: "w-[101px] lg:w-[168px]",
-    nudge: "-translate-x-[1.4%] translate-y-[2.5%]",
+    // The wallet export carries a stray 1.3px dot up at (122, 35), far above
+    // the wallet body, which sits low in the frame at y 84..137 of 181. That
+    // speck stretches the alpha bounds over twice the glyph's real height and
+    // drags their centre from +10.9% to -2.5%, so measuring the box naively
+    // reads the glyph as high when it is in fact low. Measured off the body
+    // alone, and confirmed against the rendered ring.
+    nudge: "-translate-x-[1.4%] -translate-y-[10.9%]",
   },
   {
     label: "Global Payment",
