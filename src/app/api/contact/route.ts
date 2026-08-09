@@ -5,11 +5,18 @@ import {
   validateEnquiry,
   type ContactEnquiry,
 } from "@/lib/contact";
-import { MailNotConfiguredError, sendEnquiry } from "@/lib/mailer";
+import {
+  contactRecipient,
+  MailNotConfiguredError,
+  sendEnquiry,
+} from "@/lib/mailer";
 
-/** nodemailer needs the Node runtime, not the edge one. */
+/** The Resend call is server-only; the API key must never reach the edge cache. */
 export const runtime = "nodejs";
+/** Never prerendered or cached: every POST must reach Resend. */
 export const dynamic = "force-dynamic";
+/** Room for a slow Resend API call rather than a platform timeout with no body. */
+export const maxDuration = 15;
 
 /**
  * A small in-process throttle. Enough to stop a stuck client or a casual
@@ -59,17 +66,19 @@ export async function POST(request: Request) {
     );
   }
 
+  // Only reached once Resend has accepted the message and returned an id;
+  // sendEnquiry throws on every other outcome, so success is never a guess.
   try {
     await sendEnquiry(normaliseEnquiry(payload as ContactEnquiry));
   } catch (error) {
-    // The reason stays in the server log; the client gets a plain message.
+    // The reason stays in the server log; the client gets a plain message with
+    // no API key, provider name, or internal detail in it.
     console.error("[contact] enquiry delivery failed", error);
     const status = error instanceof MailNotConfiguredError ? 503 : 502;
     return NextResponse.json(
       {
         ok: false,
-        error:
-          "We could not send your enquiry just now. Please try again, or email sales@infinios.com directly.",
+        error: `We could not send your enquiry just now. Please try again, or email ${contactRecipient()} directly.`,
       },
       { status },
     );

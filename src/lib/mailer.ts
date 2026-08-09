@@ -1,60 +1,76 @@
-import nodemailer, { type Transporter } from "nodemailer";
+import { Resend } from "resend";
 
 import type { ContactEnquiry } from "./contact";
 
 /**
- * Outbound mail for the contact form.
+ * Outbound mail for the contact form, delivered through Resend.
  *
- * Deliberately provider-neutral: this speaks SMTP, so the credentials decide
- * who actually delivers the message (Microsoft 365, Google Workspace, SES,
- * Postmark, anything). Nothing here is specific to one vendor. It is imported
- * only by the route handler, so the credentials never reach a client bundle.
+ * Imported only by the route handler, so the API key never reaches a client
+ * bundle. The key is read at call time rather than at module load, so a build
+ * without the variable still succeeds and a serverless instance never caches a
+ * half-configured client.
  *
  * Required environment (see .env.example):
- *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
+ *   RESEND_API_KEY
  * Optional:
- *   SMTP_SECURE       "true" to force TLS on connect; defaults to port === 465
- *   CONTACT_TO_EMAIL  defaults to sales@infinios.com
- *   CONTACT_FROM_EMAIL defaults to SMTP_USER
+ *   CONTACT_FROM_EMAIL a sender on the verified website.infinios.com domain;
+ *                      defaults to noreply@website.infinios.com
+ *   CONTACT_TO_EMAIL   defaults to sales@infinios.com
  */
 
-export const CONTACT_RECIPIENT =
-  process.env.CONTACT_TO_EMAIL ?? "sales@infinios.com";
+const DEFAULT_RECIPIENT = "sales@infinios.com";
+const DEFAULT_SENDER = "noreply@website.infinios.com";
 
-/** Thrown when the mail transport has not been configured for this deploy. */
+/** Where enquiries land. */
+export function contactRecipient(): string {
+  return process.env.CONTACT_TO_EMAIL?.trim() || DEFAULT_RECIPIENT;
+}
+
+/**
+ * The sender. Must be an address on website.infinios.com, the domain verified
+ * in Resend — the shared onboarding@resend.dev sender only delivers to the
+ * account owner and is not usable in production.
+ */
+function sender(): string {
+  const address = process.env.CONTACT_FROM_EMAIL?.trim() || DEFAULT_SENDER;
+  return `INFINIOS Website <${address}>`;
+}
+
+/** Thrown when Resend has not been configured for this deploy. */
 export class MailNotConfiguredError extends Error {
-  constructor(missing: string[]) {
-    super(`Mail transport is not configured. Missing: ${missing.join(", ")}`);
+  constructor(missing: string) {
+    super(`Resend is not configured. Missing: ${missing}`);
     this.name = "MailNotConfiguredError";
   }
 }
 
-let cached: Transporter | null = null;
+/**
+ * Thrown when Resend answered but did not accept the message.
+ *
+ * The SDK does not throw on an API error — it resolves with `{ data: null,
+ * error }`. Turning that into an exception is what stops a rejected enquiry
+ * from being reported to the visitor as sent.
+ */
+export class MailRejectedError extends Error {
+  readonly code: string;
+  constructor(code: string, message: string) {
+    super(`Resend rejected the message (${code}): ${message}`);
+    this.name = "MailRejectedError";
+    this.code = code;
+  }
+}
 
-function transport(): Transporter {
-  if (cached) return cached;
+let cached: { key: string; client: Resend } | null = null;
 
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_SECURE } =
-    process.env;
+function client(): Resend {
+  const key = process.env.RESEND_API_KEY?.trim();
+  if (!key) throw new MailNotConfiguredError("RESEND_API_KEY");
 
-  const missing = Object.entries({
-    SMTP_HOST,
-    SMTP_PORT,
-    SMTP_USER,
-    SMTP_PASSWORD,
-  })
-    .filter(([, v]) => !v)
-    .map(([k]) => k);
-  if (missing.length) throw new MailNotConfiguredError(missing);
-
-  const port = Number(SMTP_PORT);
-  cached = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure: SMTP_SECURE ? SMTP_SECURE === "true" : port === 465,
-    auth: { user: SMTP_USER as string, pass: SMTP_PASSWORD as string },
-  });
-  return cached;
+  // Rebuild if the key changed under us; otherwise reuse for this instance.
+  if (cached?.key === key) return cached.client;
+  const created = new Resend(key);
+  cached = { key, client: created };
+  return created;
 }
 
 const escape = (value: string) =>
@@ -66,40 +82,105 @@ const escape = (value: string) =>
       ]!,
   );
 
-/** Sends one enquiry to the sales inbox. Throws if delivery fails. */
-export async function sendEnquiry(enquiry: ContactEnquiry): Promise<void> {
+/*
+ * Site palette, inlined. Mail clients strip <style> blocks and know nothing of
+ * Tailwind, so the brand has to travel on each element.
+ */
+const NAVY = "#061b3a";
+const INK = "#10284d";
+const MUTED = "#63728a";
+const BRAND = "#2563ff";
+const HAIRLINE = "#e4e9f2";
+
+/** Builds the branded HTML body. */
+function renderHtml(enquiry: ContactEnquiry, rows: [string, string][]): string {
+  const cells = rows
+    .map(
+      ([label, value]) => `
+        <tr>
+          <td style="padding:10px 20px 10px 0;font:600 13px/1.4 Arial,Helvetica,sans-serif;color:${MUTED};white-space:nowrap;vertical-align:top;border-bottom:1px solid ${HAIRLINE}">${escape(label)}</td>
+          <td style="padding:10px 0;font:14px/1.5 Arial,Helvetica,sans-serif;color:${INK};vertical-align:top;border-bottom:1px solid ${HAIRLINE}"><strong>${escape(value)}</strong></td>
+        </tr>`,
+    )
+    .join("");
+
+  return `<!doctype html>
+<html>
+  <body style="margin:0;padding:24px;background:#f4f6fb">
+    <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;max-width:640px;margin:0 auto;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid ${HAIRLINE};border-radius:14px;overflow:hidden">
+      <tr>
+        <td style="padding:24px 32px;background:${NAVY}">
+          <div style="font:700 18px/1.2 Arial,Helvetica,sans-serif;color:#ffffff;letter-spacing:1.5px">INFINIOS</div>
+          <div style="margin-top:6px;font:13px/1.4 Arial,Helvetica,sans-serif;color:rgba(255,255,255,0.72)">New website enquiry</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:28px 32px 8px">
+          <h1 style="margin:0 0 4px;font:700 20px/1.3 Arial,Helvetica,sans-serif;color:${NAVY}">${escape(enquiry.interest)}</h1>
+          <p style="margin:0 0 18px;font:14px/1.5 Arial,Helvetica,sans-serif;color:${MUTED}">Submitted through the Contact Us form on the INFINIOS website.</p>
+          <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse">${cells}</table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:20px 32px 28px">
+          <p style="margin:0 0 8px;font:600 13px/1.4 Arial,Helvetica,sans-serif;color:${MUTED}">Message</p>
+          <div style="padding:16px 18px;background:#f7f9fd;border-left:3px solid ${BRAND};border-radius:8px;font:14px/1.65 Arial,Helvetica,sans-serif;color:${INK};white-space:pre-wrap">${escape(enquiry.message)}</div>
+          <p style="margin:20px 0 0;font:13px/1.5 Arial,Helvetica,sans-serif;color:${MUTED}">Reply directly to this email to reach ${escape(enquiry.firstName)} at <a href="mailto:${escape(enquiry.email)}" style="color:${BRAND};text-decoration:none">${escape(enquiry.email)}</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:16px 32px;background:#f7f9fd;border-top:1px solid ${HAIRLINE};font:12px/1.5 Arial,Helvetica,sans-serif;color:${MUTED}">
+          Automated message from the INFINIOS website. Please do not reply to the sender address.
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+/**
+ * Sends one enquiry to the sales inbox.
+ *
+ * Resolves only once Resend has accepted the message and returned an id. Any
+ * other outcome — no API key, an API error, a missing id, a network failure —
+ * throws, so the route can never report a delivery that did not happen.
+ */
+export async function sendEnquiry(enquiry: ContactEnquiry): Promise<string> {
+  const to = contactRecipient();
+
   const rows: [string, string][] = [
-    ["Name", `${enquiry.firstName} ${enquiry.lastName}`],
-    ["Work email", enquiry.email],
+    ["First Name", enquiry.firstName],
+    ["Last Name", enquiry.lastName],
+    ["Work Email", enquiry.email],
     ["Company", enquiry.company],
     ["Interested in", enquiry.interest],
   ];
 
   const text = [
+    "New INFINIOS website enquiry",
+    "",
     ...rows.map(([k, v]) => `${k}: ${v}`),
     "",
     "Message:",
     enquiry.message,
+    "",
+    "—",
+    "Submitted through the Contact Us form on the INFINIOS website.",
   ].join("\n");
 
-  const html = [
-    `<h2 style="font:600 18px system-ui,sans-serif;color:#10284d">New enquiry from the INFINIOS website</h2>`,
-    `<table style="font:14px system-ui,sans-serif;color:#10284d;border-collapse:collapse">`,
-    ...rows.map(
-      ([k, v]) =>
-        `<tr><td style="padding:4px 16px 4px 0;color:#63728a">${k}</td><td style="padding:4px 0"><strong>${escape(v)}</strong></td></tr>`,
-    ),
-    `</table>`,
-    `<p style="font:14px system-ui,sans-serif;color:#63728a;margin:16px 0 4px">Message</p>`,
-    `<p style="font:14px/1.6 system-ui,sans-serif;color:#10284d;white-space:pre-wrap;margin:0">${escape(enquiry.message)}</p>`,
-  ].join("");
-
-  await transport().sendMail({
-    to: CONTACT_RECIPIENT,
-    from: process.env.CONTACT_FROM_EMAIL ?? (process.env.SMTP_USER as string),
+  const { data, error } = await client().emails.send({
+    from: sender(),
+    to: [to],
     replyTo: `${enquiry.firstName} ${enquiry.lastName} <${enquiry.email}>`,
-    subject: `Website enquiry — ${enquiry.company} (${enquiry.interest})`,
+    subject: `New INFINIOS Website Enquiry — ${enquiry.interest}`,
     text,
-    html,
+    html: renderHtml(enquiry, rows),
   });
+
+  // The SDK reports API failures in `error` rather than by throwing, so an
+  // un-inspected result would look identical to a success.
+  if (error) throw new MailRejectedError(error.name, error.message);
+  if (!data?.id) throw new MailRejectedError("no_id", "Resend returned no id.");
+
+  return data.id;
 }
