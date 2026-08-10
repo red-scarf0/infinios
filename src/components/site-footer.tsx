@@ -14,7 +14,6 @@ import Link from "next/link";
  *   Marketplaces & Digital Platforms — designed (Figma section 186:13652),
  *     not built; the industries page itself lists only the other five.
  *   Leadership Team, Partners — no frame in the Final page.
- *   Privacy Policy, Terms & Conditions, Investor Relations — no frame either.
  */
 type FooterLink = { label: string; href?: string };
 
@@ -75,9 +74,9 @@ const COLUMNS: { heading: string; links: FooterLink[] }[] = [
 ];
 
 const LEGAL: FooterLink[] = [
-  { label: "Privacy Policy" },
-  { label: "Terms & Conditions" },
-  { label: "Investor Relations" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+  { label: "Security", href: "/security" },
 ];
 
 export function SiteFooter() {
