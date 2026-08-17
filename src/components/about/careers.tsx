@@ -104,7 +104,7 @@ export function AboutCareers() {
                 </h3>
               </RevealItem>
               <RevealItem>
-                <p className="group/flow mt-5 max-w-[664px] text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[27px] lg:text-[40px]">
+                <p className="mt-5 max-w-[664px] text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[27px] lg:text-[40px]">
                   <span className="text-navy">
                     INFINIOS brings together specialists who build, operate and
                     impr

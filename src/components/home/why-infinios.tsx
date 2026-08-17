@@ -22,11 +22,12 @@ export function WhyInfinios() {
 
           {/*
             Two-tone paragraph: the frame paints the opening clause brand blue
-            and drops the remainder to #d3d3d3. On hover the brand colour
-            sweeps left-to-right across the grey.
+            and drops the remainder to #d3d3d3. The brand colour then sweeps
+            left-to-right across the grey as the paragraph scrolls up the
+            viewport, and back out again on the way down.
           */}
           <RevealItem>
-            <p className="group/flow mt-8 max-w-[1066px] text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[52px] lg:text-[40px]">
+            <p className="mt-8 max-w-[1066px] text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[52px] lg:text-[40px]">
               <span className="text-brand">
                 Payment programmes require more than software. INFINIOS combines
                 regulated

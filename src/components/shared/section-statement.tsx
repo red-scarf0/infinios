@@ -58,7 +58,7 @@ export function SectionStatement({
 
           <RevealItem>
             <p
-              className="group/flow mt-6 text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[var(--body-gap)] lg:text-[40px]"
+              className="mt-6 text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[var(--body-gap)] lg:text-[40px]"
               style={
                 {
                   maxWidth: bodyMeasure,

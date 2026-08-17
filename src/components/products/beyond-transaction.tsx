@@ -39,7 +39,7 @@ export function BeyondTransaction() {
           </RevealItem>
 
           <RevealItem>
-            <p className="group/flow mt-6 max-w-[944px] text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[84px] lg:text-[40px]">
+            <p className="mt-6 max-w-[944px] text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[84px] lg:text-[40px]">
               <span className="text-brand">
                 Modern payment products require more than moving money.
               </span>

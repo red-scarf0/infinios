@@ -89,7 +89,7 @@ export function ProductsSection() {
           </RevealItem>
 
           <RevealItem>
-            <p className="group/flow mt-6 max-w-[944px] text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[66px] lg:ml-[14px] lg:text-[40px]">
+            <p className="mt-6 max-w-[944px] text-[20px] leading-[1.1488] sm:text-[28px] lg:mt-[66px] lg:ml-[14px] lg:text-[40px]">
               <span className="text-brand">
                 Each INFINIOS product solves a specific part of the payment
                 lifecycle

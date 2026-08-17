@@ -34,7 +34,7 @@ export default function SolutionsPage() {
         <section className="bg-white pt-14 pb-14 lg:pt-[192px] lg:pb-[144px]">
           <Container>
             <Reveal>
-              <p className="group/flow max-w-[944px] text-[20px] leading-[1.1488] sm:text-[28px] lg:ml-[9px] lg:text-[40px]">
+              <p className="max-w-[944px] text-[20px] leading-[1.1488] sm:text-[28px] lg:ml-[9px] lg:text-[40px]">
                 <span className="text-brand">
                   The process begins with the business model and desired
                   outcome,{" "}

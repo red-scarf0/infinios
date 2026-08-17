@@ -33,13 +33,12 @@ export function StablecoinIntro() {
 
             {/*
               Unlike every other two-tone paragraph on the site this block has
-              two of them, so `group/flow` goes on a wrapper rather than on one
-              paragraph — hovering anywhere in the copy sweeps both greys to
-              brand blue together, off the one `.color-flow` transition. The
-              wrapper is unstyled, so the paragraph margins collapse through it
-              exactly as before.
+              two of them. Each scrubs off its own position, so the second
+              paragraph fills a beat after the first as the pair scrolls up.
+              The wrapper is unstyled, so the paragraph margins collapse
+              through it exactly as before.
             */}
-            <div className="group/flow">
+            <div>
               <p className="mt-6 text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[48px] lg:text-[40px]">
                 <span className="text-brand">
                   Financial institutions, fintechs and payment providers are
