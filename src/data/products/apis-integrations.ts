@@ -158,5 +158,6 @@ export const apisIntegrations: ProductDetail = {
     body: "Share your systems, required services and launch objectives. Our team will help define the integration path.",
     ctaLabel: "Discuss an Integration",
     ctaHref: "/contact",
+    image: "/new-images/cta-banner-card.jpg",
   },
 };
