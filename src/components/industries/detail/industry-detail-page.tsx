@@ -10,6 +10,7 @@ export function IndustryDetailPage({ industry }: { industry: IndustryDetail }) {
   return (
     <DetailPageLayout
       page={industry}
+      showCloseButton
       related={
         /* Margin, not padding: the plate is pinned to the section box, so
            padding would slide the content off it. */
