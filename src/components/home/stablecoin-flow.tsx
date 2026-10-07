@@ -98,7 +98,7 @@ export function StablecoinFlow() {
               <div className="flex flex-col items-center">
                 <div className="relative grid size-[140px] place-items-center lg:size-[190px]">
                   <Image
-                    src="/images/ring.png"
+                    src="/new-images/icon3d.png"
                     alt=""
                     fill
                     aria-hidden
