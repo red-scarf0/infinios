@@ -158,5 +158,6 @@ export const platformOperations: ProductDetail = {
     body: "Request a focused platform discussion based on your teams, workflows and reporting requirements.",
     ctaLabel: "Request a Platform Demo",
     ctaHref: "/contact",
+    image: "/new-images/cta-banner-card.jpg",
   },
 };
