@@ -212,7 +212,7 @@ export const cardAsAService: SolutionDetail = {
     body: "Tell us who the programme is for, how the cards will be used and where you plan to launch",
     ctaLabel: "Launch Your Programme",
     ctaHref: "/contact",
-    image: `${IMAGES}/cta-arcs.jpg`,
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
