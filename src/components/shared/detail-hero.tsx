@@ -94,7 +94,7 @@ export function DetailHero({
           width={775}
           height={496}
           aria-hidden
-          className="pointer-events-none absolute right-[-4.1vw] top-[-15.1vw] z-10 w-[60vw] max-w-none rotate-[-5.1deg] opacity-[0.39]"
+          className="pointer-events-none absolute right-[-4.1vw] top-[-5vw] z-10 w-[60vw] max-w-none rotate-[-5.1deg] opacity-[0.39]"
         />
       ) : null}
       <div className="absolute inset-0 -z-10" aria-hidden>
