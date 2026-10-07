@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";\n\nimport Image from "next/image";\nimport { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -82,7 +82,7 @@ export function DetailHero({
   } = metrics;
 
   return (
-    <section className="relative isolate overflow-hidden bg-ink">
+    <section className="relative isolate overflow-hidden bg-ink">\n      {showCloseButton ? (\n        <button\n          type="button"\n          onClick={() => router.back()}\n          aria-label="Close product detail"\n          className="absolute right-3 top-3 z-20 flex h-6 w-6 items-center justify-center border border-white/80 bg-black/20 text-[14px] leading-none text-white transition-colors hover:bg-white hover:text-ink sm:right-5 sm:top-5"\n        >\n          <span aria-hidden>×</span>\n        </button>\n      ) : null}
       <div className="absolute inset-0 -z-10" aria-hidden>
         <Image
           src={hero.image}
