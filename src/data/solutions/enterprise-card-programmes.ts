@@ -185,7 +185,7 @@ export const enterpriseCardProgrammes: SolutionDetail = {
     body: "Discuss your users, payment categories, approval model and reporting needs with INFINIOS.",
     ctaLabel: "Discuss Enterprise Cards",
     ctaHref: "/contact",
-    image: `${IMAGES}/cta-arcs.jpg`,
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
