@@ -32,14 +32,26 @@ export function SplitHero({
     // a narrower screen crops it to an unreadable dark sliver.
     <section className="relative isolate flex min-h-[620px] flex-col justify-end overflow-hidden bg-ink pb-14 sm:min-h-[760px] lg:min-h-[clamp(760px,71.2vw,1367px)] lg:pb-[255px]">
       <div className="absolute inset-0 -z-10" aria-hidden>
-        <Image
-          src={image}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        {image.endsWith(".mp4") ? (
+          <video
+            src={image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <Image
+            src={image}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        )}
         {/* Blue wash across the lower plate: #0854A5 at the foot, out by the top. */}
         <span className="absolute inset-x-0 top-[41.8%] h-[68.8%] bg-gradient-to-t from-[#0854a5] from-[7.2%] to-[rgba(51,70,174,0)] to-[94.2%]" />
 
