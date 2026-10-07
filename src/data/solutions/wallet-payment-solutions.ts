@@ -193,7 +193,7 @@ export const walletPaymentSolutions: SolutionDetail = {
     body: "Share how value should enter, move through and leave your ecosystem. We will help structure the solution behind it.",
     ctaLabel: "Speak to Our Team",
     ctaHref: "/contact",
-    image: `${IMAGES}/cta-slats.jpg`,
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
