@@ -1,6 +1,6 @@
-"use client";\n\nimport Image from "next/image";\nimport { useRouter } from "next/navigation";
-
+"use client";\n\nimport Image from "next/image";\n
 import { Button } from "@/components/ui/button";
+import { DetailHeroCloseButton } from "@/components/shared/detail-hero-close-button";
 import { Container } from "@/components/ui/container";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 
