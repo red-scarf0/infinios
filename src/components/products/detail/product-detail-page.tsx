@@ -36,6 +36,7 @@ export function ProductDetailPage({ product }: { product: ProductDetail }) {
           body={product.cta.body}
           ctaLabel={product.cta.ctaLabel}
           ctaHref={product.cta.ctaHref}
+          image={product.cta.image}
           headingClassName="lg:text-[36px]"
           headingMeasure="467px"
           bodyMeasure="474px"
