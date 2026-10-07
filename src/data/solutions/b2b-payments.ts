@@ -16,7 +16,7 @@ export const b2bPayments: SolutionDetail = {
     eyebrow: "B2B Payments",
     heading: "Move business payments with less manual work and more control.",
     body: "Connect payment requests, virtual cards, supplier settlement, disbursements and reconciliation in one operational flow.",
-    image: `${IMAGES}/b2b-payments-hero.jpg`,
+    image: "/new-images/hero-b2b-payments.png",
     primaryCta: { label: "Explore B2B Payments", href: "#capabilities" },
     secondaryCta: { label: "Speak to an Expert", href: "/contact" },
     metrics: {
