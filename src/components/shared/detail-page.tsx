@@ -21,15 +21,17 @@ import type { DetailPage } from "@/data/detail-sections";
 export function DetailPageLayout({
   page,
   related,
+  showCloseButton = false,
 }: {
   page: DetailPage;
   related: React.ReactNode;
+  showCloseButton?: boolean;
 }) {
   return (
     <>
       <SiteHeader />
       <main>
-        <DetailHero hero={page.hero} metrics={page.hero.metrics} />
+        <DetailHero hero={page.hero} metrics={page.hero.metrics} showCloseButton={showCloseButton} />
 
         {page.sections.map((section, index) => {
           switch (section.kind) {
