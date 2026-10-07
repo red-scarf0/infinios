@@ -56,6 +56,7 @@ export type ProductDetail = {
     body: string;
     ctaLabel: string;
     ctaHref: string;
+    image?: string;
   };
 };
 
