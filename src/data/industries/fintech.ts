@@ -178,7 +178,7 @@ export const fintech: IndustryDetail = {
     body: "Share your product concept, required capabilities and target launch market with INFINIOS.",
     ctaLabel: "Build with INFINIOS",
     ctaHref: "/contact",
-    image: "/images/solutions/cta-arcs.jpg",
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
