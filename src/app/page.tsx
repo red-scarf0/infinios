@@ -36,6 +36,7 @@ export default function HomePage() {
           body="Connect stablecoin-enabled flows with cards, wallets and payment operations."
           ctaLabel="Explore Solutions"
           ctaHref="/solutions"
+          image="/new-images/cta-banner-homepage.png"
         />
       </main>
       <SiteFooter />
