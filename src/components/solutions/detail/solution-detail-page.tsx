@@ -10,6 +10,7 @@ export function SolutionDetailPage({ solution }: { solution: SolutionDetail }) {
   return (
     <DetailPageLayout
       page={solution}
+      showCloseButton
       related={
         /* Margin, not padding: the plate is pinned to the section box, so
            padding would slide the content off it. */
