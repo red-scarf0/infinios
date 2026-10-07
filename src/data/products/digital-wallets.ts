@@ -159,5 +159,6 @@ export const digitalWallets: ProductDetail = {
     body: "Tell us how users need to fund, hold, spend or transfer value. We will map the infrastructure behind the journey.",
     ctaLabel: "Speak to an Expert",
     ctaHref: "/contact",
+    image: "/new-images/cta-banner-card.jpg",
   },
 };
