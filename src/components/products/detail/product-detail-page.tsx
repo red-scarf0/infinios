@@ -23,7 +23,7 @@ export function ProductDetailPage({ product }: { product: ProductDetail }) {
         {/* All five product frames indent the page name to x=188 against a
             content column at x=171. Their vertical measure is the shared
             default, which is taken from these same frames. */}
-        <DetailHero hero={product.hero} metrics={{ eyebrowIndent: 17 }} />
+        <DetailHero hero={product.hero} metrics={{ eyebrowIndent: 17 }} showCloseButton />
         <FeatureRows overview={product.overview} features={product.features} />
         <JourneyFlow journey={product.journey} />
         <NotchedGrid
