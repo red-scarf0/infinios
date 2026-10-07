@@ -177,7 +177,7 @@ export const paymentServiceProviders: IndustryDetail = {
     body: "Discuss the capability, client segment and operating model you plan to add.",
     ctaLabel: "Speak to Our Team",
     ctaHref: "/contact",
-    image: "/images/solutions/cta-arcs.jpg",
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
