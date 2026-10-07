@@ -26,6 +26,7 @@ export default function ProductsPage() {
           body="Explore each product or speak with our team about a connected infrastructure model."
           ctaLabel="Speak to an Expert"
           ctaHref="/contact"
+          image="/new-images/cta-banner-homepage.png"
           headingMeasure="599px"
           bodyMeasure="420px"
           paddingTop="210px"
