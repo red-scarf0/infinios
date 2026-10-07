@@ -38,6 +38,7 @@ export default function AboutPage() {
           paddingBottom="72px"
           bodyGap="32px"
           spacingBottom="60px"
+          image="/new-images/cta-banner-homepage.png"
         />
       </main>
       <SiteFooter />
