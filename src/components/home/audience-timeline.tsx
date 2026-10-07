@@ -157,7 +157,7 @@ export function AudienceTimeline() {
           variants={reduced ? undefined : ringVariants}
         >
           <Image
-            src="/images/ring.png"
+            src="/new-images/icon3d.png"
             alt=""
             width={190}
             height={193}
