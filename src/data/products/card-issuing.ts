@@ -160,5 +160,6 @@ export const cardIssuing: ProductDetail = {
     body: "Share your use case, target market and programme requirements with the INFINIOS team.",
     ctaLabel: "Discuss a Card Programme",
     ctaHref: "/contact",
+    image: "/new-images/cta-banner-card.jpg",
   },
 };
