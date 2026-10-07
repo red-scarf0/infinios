@@ -87,6 +87,16 @@ export function DetailHero({
   return (
     <section className="relative isolate overflow-hidden bg-ink">
       {showCloseButton ? <DetailHeroCloseButton /> : null}
+      {showCloseButton ? (
+        <Image
+          src="/new-images/Layer_1.svg"
+          alt=""
+          width={775}
+          height={496}
+          aria-hidden
+          className="pointer-events-none absolute right-[-4.1vw] top-[-15.1vw] z-10 w-[60vw] max-w-none rotate-[-5.1deg] opacity-[0.39]"
+        />
+      ) : null}
       <div className="absolute inset-0 -z-10" aria-hidden>
         <Image
           src={hero.image}
