@@ -14,7 +14,7 @@ export const digitalWallets: ProductDetail = {
     heading:
       "Put balances, funding and transfers inside your customer experience.",
     body: "Build customer, business or platform wallets that connect funding, payments, transfers and real-time transaction visibility.",
-    image: "/images/products/digital-wallets-hero.jpg",
+    image: "/new-images/digital-hero.jpg",
     primaryCta: { label: "Explore Wallet Capabilities", href: "#capabilities" },
     secondaryCta: { label: "Speak to an Expert", href: "/contact" },
   },
