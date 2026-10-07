@@ -184,7 +184,7 @@ export const programmeLaunchBinSponsorship: SolutionDetail = {
     body: "Share the market, product and operating model you are considering. INFINIOS will help define the path to launch.",
     ctaLabel: "Launch Your Programme",
     ctaHref: "/contact",
-    image: `${IMAGES}/cta-arcs.jpg`,
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
