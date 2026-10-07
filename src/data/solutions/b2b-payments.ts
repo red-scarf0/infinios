@@ -186,7 +186,7 @@ export const b2bPayments: SolutionDetail = {
     body: "Discuss your supplier, expense, settlement or disbursement flows with the INFINIOS team.",
     ctaLabel: "Speak to an Expert",
     ctaHref: "/contact",
-    image: `${IMAGES}/cta-slats.jpg`,
+    image: "/new-images/cta-banner-card.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",
