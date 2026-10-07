@@ -13,7 +13,7 @@ export function ProductsHero() {
     <section className="relative isolate flex min-h-[620px] flex-col justify-end overflow-hidden bg-ink pb-14 sm:min-h-[760px] lg:min-h-[1241px] lg:pb-[129px]">
       <div className="absolute inset-0 -z-10" aria-hidden>
         <Image
-          src="/images/products-hero.png"
+          src="/new-images/product-hero.jpg"
           alt=""
           fill
           priority
