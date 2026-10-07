@@ -1,12 +1,9 @@
-import Image from "next/image";
-
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 
 /**
- * About hero — full-bleed still (unlike the homepage, the frame uses an image
- * here, not a video). Heading sits left at x=212, copy and CTA right at
+ * About hero — full-bleed video. Heading sits left at x=212, copy and CTA right at
  * x=1268, both anchored to the bottom. The band runs to 1270 so the white
  * section below can overlap it by 52px and reveal blue through its corners.
  */
@@ -14,16 +11,14 @@ export function AboutHero() {
   return (
     <section className="relative isolate flex min-h-[620px] flex-col justify-end overflow-hidden bg-ink pb-14 sm:min-h-[760px] lg:min-h-[1270px] lg:pb-[158px]">
       <div className="absolute inset-0 -z-10" aria-hidden>
-        <Image
-          src="/images/about-hero.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          // The frame crops 215 of the 348px horizontal overflow from the
-          // left, so the artwork sits right of centre.
-          style={{ objectPosition: "62% center" }}
-          className="object-cover"
+        <video
+          src="/new-images/about-us-hero-section.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+          className="h-full w-full object-cover"
         />
       </div>
 
