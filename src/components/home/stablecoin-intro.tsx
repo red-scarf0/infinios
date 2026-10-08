@@ -12,12 +12,6 @@ export function StablecoinIntro() {
       </Reveal>
 
       <Container>
-        {/*
-          In the frame the text column is 773px at x=211 and the globe is
-          886px at x=1126 — it runs 92px past the 1920 canvas and is clipped
-          by the page edge. From 2xl the globe is sized in vw so it keeps that
-          same proportional overhang; below that it sits above the copy.
-        */}
         <Reveal
           className="mt-10 grid items-start gap-10 lg:mt-[164px] 2xl:grid-cols-[773px_auto] 2xl:gap-[142px]"
           stagger={0.14}
@@ -29,13 +23,6 @@ export function StablecoinIntro() {
               <br className="hidden lg:block" /> operations.
             </h2>
 
-            {/*
-              Unlike every other two-tone paragraph on the site this block has
-              two of them. Each scrubs off its own position, so the second
-              paragraph fills a beat after the first as the pair scrolls up.
-              The wrapper is unstyled, so the paragraph margins collapse
-              through it exactly as before.
-            */}
             <div>
               <p className="mt-6 text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[48px] lg:text-[40px]">
                 <span className="text-brand">
@@ -49,8 +36,6 @@ export function StablecoinIntro() {
                 </ColorFlowText>
               </p>
 
-              {/* `--color-muted` is #b1b1b1 — the same grey the clause above
-                  rests at, so this reads identically at rest. */}
               <p className="mt-6 text-[18px] leading-[1.1488] sm:text-[26px] lg:mt-[55px] lg:text-[40px]">
                 <ColorFlowText from="#b1b1b1">
                   INFINIOS provides the infrastructure, operational expertise
@@ -65,7 +50,7 @@ export function StablecoinIntro() {
           <RevealItem className="order-first 2xl:order-none 2xl:-mt-[113px]">
             <Parallax distance={26}>
               <video
-                src="/new-images/homepage globe.mp4"
+                src="/new-images/homepage-globe-sq.mp4"
                 aria-label="A stylised globe with orbital data rings, representing global stablecoin settlement"
                 autoPlay
                 muted
