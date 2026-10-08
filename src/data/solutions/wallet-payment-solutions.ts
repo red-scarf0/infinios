@@ -17,7 +17,7 @@ export const walletPaymentSolutions: SolutionDetail = {
     heading:
       "Create wallet-led journeys that connect funding, transfers and payments.",
     body: "Build customer and business payment experiences around balances, funding flows, transfers, payouts and embedded payment functionality.",
-    image: `${IMAGES}/wallet-payment-solutions-hero.jpg`,
+    image: "/new-images/wallet payment and solution.jpg",
     primaryCta: { label: "Explore Wallet Solutions", href: "#capabilities" },
     secondaryCta: { label: "Speak to Our Team", href: "/contact" },
     metrics: {
