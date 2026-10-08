@@ -2,6 +2,7 @@ import { banksFinancialInstitutions } from "./banks-financial-institutions";
 import { fintech } from "./fintech";
 import { paymentServiceProviders } from "./payment-service-providers";
 import { remittanceMoneyTransferOperators } from "./remittance-money-transfer-operators";
+import { marketplacesDigitalPlatforms } from "./marketplaces-digital-platforms";
 import { travel } from "./travel";
 
 export type { IndustryDetail, IndustrySection } from "./types";
@@ -14,6 +15,7 @@ export {
   fintech,
   paymentServiceProviders,
   remittanceMoneyTransferOperators,
+  marketplacesDigitalPlatforms,
   travel,
 };
 
@@ -24,4 +26,5 @@ export const industryDetails = [
   banksFinancialInstitutions,
   paymentServiceProviders,
   remittanceMoneyTransferOperators,
+  marketplacesDigitalPlatforms,
 ] as const;
