@@ -65,6 +65,7 @@ export function IndustriesSection({
         bodyGap: 5,
         /* Travel's copy runs to five lines, so the row reserves its height. */
         reserve: 323,
+        columns: 6,
       }}
     />
   );
