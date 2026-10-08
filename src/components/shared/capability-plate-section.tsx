@@ -76,7 +76,12 @@ export function CapabilityPlateSection({
         and falls back to the page gutter on smaller screens, where a fixed
         203px would leave the card row barely 600px wide.
       */}
-      <div className="relative px-5 pt-14 sm:px-8 lg:px-[max(3rem,calc((100vw-1514px)/2))] lg:pt-[171px]">
+      <div className={cn(
+        "relative px-5 pt-14 sm:px-8 lg:pt-[171px]",
+        id === "industries"
+          ? "lg:px-[max(1.5rem,calc((100vw-1770px)/2))]"
+          : "lg:px-[max(3rem,calc((100vw-1514px)/2))]",
+      )}>
         <Reveal className="lg:ml-[8px]">
           <SectionLabel>{label}</SectionLabel>
         </Reveal>
