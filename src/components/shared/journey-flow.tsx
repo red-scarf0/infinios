@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/ui/container";
+import Image from "next/image";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Reveal } from "@/components/motion/reveal";
 import {
@@ -147,18 +148,35 @@ function Step({
   return (
     <div data-journey-active={active} onMouseEnter={onActivate}>
       {step.icon ? (
-        <span
-          aria-hidden
-          className="journey-icon absolute"
-          style={{
-            left: step.iconX! - origin.x,
-            top: step.iconY! - origin.y,
-            width: step.iconWidth,
-            height: step.iconHeight,
-            maskImage: `url(${step.icon})`,
-            WebkitMaskImage: `url(${step.icon})`,
-          }}
-        />
+        step.icon.includes("/new-images/") ? (
+          <Image
+            src={step.icon}
+            alt=""
+            aria-hidden
+            width={step.iconWidth!}
+            height={step.iconHeight!}
+            className="journey-icon absolute object-contain"
+            style={{
+              left: step.iconX! - origin.x,
+              top: step.iconY! - origin.y,
+              width: step.iconWidth,
+              height: step.iconHeight,
+            }}
+          />
+        ) : (
+          <span
+            aria-hidden
+            className="journey-icon absolute"
+            style={{
+              left: step.iconX! - origin.x,
+              top: step.iconY! - origin.y,
+              width: step.iconWidth,
+              height: step.iconHeight,
+              maskImage: `url("${step.icon}")`,
+              WebkitMaskImage: `url("${step.icon}")`,
+            }}
+          />
+        )
       ) : null}
       <span
         className="journey-pill absolute flex items-center justify-center rounded-[41px] px-4 text-[32px] leading-[1.54] font-semibold whitespace-nowrap"
@@ -234,16 +252,31 @@ function StackedStep({
         className="flex max-w-full flex-col items-center"
       >
         {step.icon ? (
-          <span
-            aria-hidden
-            className="journey-icon mb-3"
-            style={{
-              width: step.iconWidth! * 0.75,
-              height: step.iconHeight! * 0.75,
-              maskImage: `url(${step.icon})`,
-              WebkitMaskImage: `url(${step.icon})`,
-            }}
-          />
+          step.icon.includes("/new-images/") ? (
+            <Image
+              src={step.icon}
+              alt=""
+              aria-hidden
+              width={step.iconWidth!}
+              height={step.iconHeight!}
+              className="mb-3 object-contain"
+              style={{
+                width: step.iconWidth! * 0.75,
+                height: step.iconHeight! * 0.75,
+              }}
+            />
+          ) : (
+            <span
+              aria-hidden
+              className="journey-icon mb-3"
+              style={{
+                width: step.iconWidth! * 0.75,
+                height: step.iconHeight! * 0.75,
+                maskImage: `url("${step.icon}")`,
+                WebkitMaskImage: `url("${step.icon}")`,
+              }}
+            />
+          )
         ) : null}
         <span className="journey-pill flex min-h-[52px] items-center justify-center rounded-[41px] px-[22px] py-2 text-center text-[16px] leading-[1.3] font-semibold sm:text-[20px]">
           {step.label}
