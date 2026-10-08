@@ -73,7 +73,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
     },
     {
       kind: "journey",
-      metrics: { paddingTop: 63 },
+      metrics: { paddingTop: 63, pillFontSize: 22 },
       journey: {
         label: "PLATFORM PAYMENT FLOW",
         origin: { x: 171, y: 2702 },
