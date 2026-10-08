@@ -93,7 +93,12 @@ export type DetailSection =
   | {
       kind: "journey";
       journey: JourneyFlowData;
-      metrics?: { paddingTop?: number; paddingBottom?: number };
+      metrics?: {
+        paddingTop?: number;
+        paddingBottom?: number;
+        pillFontSize?: number;
+        connectorWidth?: number;
+      };
     }
   | {
       kind: "cards";
