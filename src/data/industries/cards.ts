@@ -14,14 +14,6 @@ import type { CapabilityCard } from "@/components/shared/capability-cards";
  */
 export const industryCards: CapabilityCard[] = [
   {
-    title: "Marketplaces & Digital\nPlatforms",
-    body: "Embed payments, wallets, cards and settlement into user and merchant journeys.",
-    icon: "/icons/industries/cards/marketplaces-digital-platforms.svg",
-    iconWidth: 62,
-    iconHeight: 54,
-    href: "/industries/marketplaces-digital-platforms",
-  },
-  {
     title: "Travel",
     body: "Use virtual cards, supplier settlement and booking-level reconciliation across high-volume travel payments.",
     icon: "/icons/industries/cards/travel.svg",
@@ -61,4 +53,13 @@ export const industryCards: CapabilityCard[] = [
     iconHeight: 55,
     href: "/industries/remittance-money-transfer-operators",
   },
+  {
+    title: "Marketplaces & Digital\nPlatforms",
+    body: "Embed payments, wallets, cards and settlement into user and merchant journeys.",
+    icon: "/icons/industries/cards/marketplaces-digital-platforms.svg",
+    iconWidth: 62,
+    iconHeight: 54,
+    href: "/industries/marketplaces-digital-platforms",
+  },
+
 ];
