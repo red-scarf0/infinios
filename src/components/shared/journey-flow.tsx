@@ -36,9 +36,9 @@ export function JourneyFlow({
 }: {
   journey: JourneyFlowData;
   /** Section spacing. Each frame opens the band at its own height. */
-  metrics?: { paddingTop?: number; paddingBottom?: number };
+  metrics?: { paddingTop?: number; paddingBottom?: number; pillFontSize?: number };
 }) {
-  const { paddingTop = 178, paddingBottom = 0 } = metrics;
+  const { paddingTop = 178, paddingBottom = 0, pillFontSize = 32 } = metrics;
   const [active, setActive] = useState<number | null>(null);
 
   const { steps, connectors } = journey;
@@ -107,6 +107,7 @@ export function JourneyFlow({
                   step={step}
                   origin={origin}
                   active={active === index}
+                  pillFontSize={pillFontSize}
                   onActivate={() => setActive(index)}
                 />
               ))}
@@ -138,11 +139,13 @@ function Step({
   step,
   origin,
   active,
+  pillFontSize,
   onActivate,
 }: {
   step: JourneyStep;
   origin: Origin;
   active: boolean;
+  pillFontSize: number;
   onActivate: () => void;
 }) {
   return (
@@ -155,7 +158,7 @@ function Step({
             aria-hidden
             width={step.iconWidth!}
             height={step.iconHeight!}
-            className="journey-icon absolute object-contain"
+            className="absolute object-contain"
             style={{
               left: step.iconX! - origin.x,
               top: step.iconY! - origin.y,
@@ -179,12 +182,13 @@ function Step({
         )
       ) : null}
       <span
-        className="journey-pill absolute flex items-center justify-center rounded-[41px] px-4 text-[32px] leading-[1.54] font-semibold whitespace-nowrap"
+        className="journey-pill absolute flex items-center justify-center rounded-[41px] px-4 leading-[1.25] font-semibold whitespace-nowrap"
         style={{
           left: step.x - origin.x,
           top: step.y - origin.y,
           width: step.width,
           height: PILL_HEIGHT,
+          fontSize: pillFontSize,
         }}
       >
         {step.label}
