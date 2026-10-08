@@ -65,6 +65,8 @@ export type CapabilityCardMetrics = {
    * larger than the frame.
    */
   fitTitle?: boolean;
+  /** Force a fixed number of columns on wide desktop frames. */
+  columns?: number;
 };
 
 /**
@@ -104,7 +106,12 @@ export function CapabilityCardRow({
   return (
     <ul
       onMouseLeave={() => setHovered(null)}
-      className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] lg:items-start lg:gap-[7px]"
+      className={cn(
+        "grid grid-cols-1 gap-5 sm:grid-cols-2 lg:items-start lg:gap-[7px]",
+        metrics.columns === 6
+          ? "min-[1552px]:grid-cols-6 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
+          : "lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))]",
+      )}
     >
       {items.map((item, index) => (
         <CapabilityCardTile
