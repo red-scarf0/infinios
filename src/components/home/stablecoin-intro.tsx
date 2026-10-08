@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ColorFlowText } from "@/components/ui/color-flow-text";
@@ -66,12 +64,14 @@ export function StablecoinIntro() {
 
           <RevealItem className="order-first 2xl:order-none 2xl:-mt-[113px]">
             <Parallax distance={26}>
-              <Image
-                src="/images/globe.png"
-                alt="A stylised globe with orbital data rings, representing global stablecoin settlement"
-                width={886}
-                height={886}
-                sizes="(min-width: 1536px) 46vw, (min-width: 640px) 640px, 100vw"
+              <video
+                src="/new-images/homepage globe.mp4"
+                aria-label="A stylised globe with orbital data rings, representing global stablecoin settlement"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
                 className="mx-auto h-auto w-full max-w-[520px] rounded-[40px] lg:max-w-[640px] lg:rounded-[98px] 2xl:mx-0 2xl:w-[46.15vw] 2xl:max-w-none"
               />
             </Parallax>
