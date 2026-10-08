@@ -1,25 +1,22 @@
 import type { IndustryDetail } from "./types";
 
-const ICONS = "/icons/industries/marketplaces-digital-platforms";
 const IMAGES = "/new-images/Marketplaces & Digital Platforms images";
 
 export const marketplacesDigitalPlatforms: IndustryDetail = {
   slug: "marketplaces-digital-platforms",
-
   metadata: {
     title: "Marketplaces & Digital Platforms",
     description:
       "Embed payments, wallets, cards and settlement into user and merchant journeys.",
   },
-
   hero: {
     eyebrow: "Marketplaces & Digital Platforms",
     heading:
       "Embed financial experiences directly into the journeys your platform already owns.",
     body: "Embed payments, wallets, cards and settlement into user and merchant journeys.",
     image: `${IMAGES}/hero-Marketplaces & Digital Platforms.jpg`,
-    primaryCta: { label: "Build with INFINIOS", href: "/contact" },
-    secondaryCta: { label: "Speak to Our Team", href: "/contact" },
+    primaryCta: { label: "Explore Embedded Payments", href: "#capabilities" },
+    secondaryCta: { label: "Request a Demo", href: "/contact" },
     metrics: {
       minHeight: 1034,
       paddingTop: 205,
@@ -31,13 +28,12 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
       secondaryWidth: 290,
     },
   },
-
   sections: [
     {
       kind: "features",
       metrics: { paddingTop: 92, rowsGap: 71 },
       overview: {
-        label: "MARKETPLACES & DIGITAL PLATFORMS",
+        label: "FOR MARKETPLACES & DIGITAL PLATFORMS",
         heading:
           "Keep the customer journey in your platform while INFINIOS powers the payment layer.",
         body: "INFINIOS enables platforms to connect payments, wallets, cards and settlement directly into the journeys users and merchants already know. The infrastructure stays behind the experience while the platform retains control over the customer journey.",
@@ -74,6 +70,10 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
           image: `${IMAGES}/reporting.png`,
         },
       ],
+    },
+    {
+      kind: "journey",
+      metrics: { paddingTop: 63 },
       journey: {
         label: "PLATFORM PAYMENT FLOW",
         origin: { x: 171, y: 2702 },
@@ -152,4 +152,39 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
           { x: 927, y: 3063 },
         ],
       },
-
+    },
+    {
+      kind: "cards",
+      label: "BUSINESS OUTCOMES",
+      metrics: { paddingTop: 95, labelGap: 155, paddingBottom: 160 },
+      items: [
+        {
+          title: "A Native\nExperience",
+          body: "Keep financial actions inside the journeys users and merchants already understand.",
+        },
+        {
+          title: "More Ecosystem\nControl",
+          body: "Bring users, merchants and financial actions together without fragmenting the platform experience.",
+        },
+        {
+          title: "A Scalable\nFoundation",
+          body: "Add capabilities as the platform grows without rebuilding its core payment flows.",
+        },
+      ],
+    },
+    { kind: "rule", paddingTop: 172 },
+  ],
+  cta: {
+    heading: "Embed the payment experience your platform needs.",
+    body: "Share the user, merchant and settlement journeys you want to support.",
+    ctaLabel: "Request a Demo",
+    ctaHref: "/contact",
+    image: "/new-images/cta-banner-card.jpg",
+    headingMeasure: "553px",
+    bodyMeasure: "474px",
+    paddingTop: "124px",
+    paddingBottom: "40px",
+    bodyGap: "52px",
+    spacingBottom: "114px",
+  },
+};
