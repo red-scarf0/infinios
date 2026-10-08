@@ -36,9 +36,9 @@ export function JourneyFlow({
 }: {
   journey: JourneyFlowData;
   /** Section spacing. Each frame opens the band at its own height. */
-  metrics?: { paddingTop?: number; paddingBottom?: number; pillFontSize?: number };
+  metrics?: { paddingTop?: number; paddingBottom?: number; pillFontSize?: number; connectorWidth?: number };
 }) {
-  const { paddingTop = 178, paddingBottom = 0, pillFontSize = 32 } = metrics;
+  const { paddingTop = 178, paddingBottom = 0, pillFontSize = 32, connectorWidth = CONNECTOR_WIDTH } = metrics;
   const [active, setActive] = useState<number | null>(null);
 
   const { steps, connectors } = journey;
@@ -98,6 +98,7 @@ export function JourneyFlow({
                   connector={connector}
                   origin={origin}
                   lit={active !== null && touching[index].includes(active)}
+                  width={connectorWidth}
                 />
               ))}
 
@@ -201,10 +202,12 @@ function Connector({
   connector,
   origin,
   lit,
+  width,
 }: {
   connector: JourneyConnector;
   origin: Origin;
   lit: boolean;
+  width: number;
 }) {
   return (
     <span
@@ -214,7 +217,7 @@ function Connector({
       style={{
         left: connector.x - origin.x,
         top: connector.y - origin.y,
-        width: CONNECTOR_WIDTH,
+        width,
         height: CONNECTOR_HEIGHT,
       }}
     />
