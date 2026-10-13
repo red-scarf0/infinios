@@ -135,7 +135,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between lg:mt-[40px] lg:pt-[11px]">
           <p className="text-[12px] leading-[19.2px] text-white/55">
-            © 2025 INFINIOS. All Rights Reserved.
+            © 2026 INFINIOS. All Rights Reserved.
           </p>
           <ul className="flex flex-wrap gap-x-4 gap-y-2">
             {LEGAL.map((item) => (
