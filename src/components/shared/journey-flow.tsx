@@ -36,9 +36,9 @@ export function JourneyFlow({
 }: {
   journey: JourneyFlowData;
   /** Section spacing. Each frame opens the band at its own height. */
-  metrics?: { paddingTop?: number; paddingBottom?: number; pillFontSize?: number; connectorWidth?: number };
+  metrics?: { paddingTop?: number; paddingBottom?: number; pillFontSize?: number; connectorWidth?: number; headingClassName?: string };
 }) {
-  const { paddingTop = 178, paddingBottom = 0, pillFontSize = 32, connectorWidth = CONNECTOR_WIDTH } = metrics;
+  const { paddingTop = 178, paddingBottom = 0, pillFontSize = 32, connectorWidth = CONNECTOR_WIDTH, headingClassName } = metrics;
   const [active, setActive] = useState<number | null>(null);
 
   const { steps, connectors } = journey;
@@ -73,7 +73,7 @@ export function JourneyFlow({
     >
       <Container>
         <Reveal>
-          <SectionLabel>{journey.label}</SectionLabel>
+          <SectionLabel className={headingClassName}>{journey.label}</SectionLabel>
         </Reveal>
 
         <div onMouseLeave={() => setActive(null)}>
