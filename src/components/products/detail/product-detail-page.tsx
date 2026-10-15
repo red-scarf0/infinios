@@ -25,7 +25,7 @@ export function ProductDetailPage({ product }: { product: ProductDetail }) {
             default, which is taken from these same frames. */}
         <DetailHero hero={product.hero} metrics={{ eyebrowIndent: 17 }} showCloseButton />
         <FeatureRows overview={product.overview} features={product.features} />
-        <JourneyFlow journey={product.journey} metrics={{ pillFontSize: 27, headingClassName: "lg:text-[28px]" }} />
+        <JourneyFlow journey={product.journey} metrics={{ pillFontSize: 27 }} />
         <NotchedGrid
           label={product.outcomes.label}
           items={product.outcomes.items}

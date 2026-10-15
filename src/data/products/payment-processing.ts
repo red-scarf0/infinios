@@ -158,6 +158,6 @@ export const paymentProcessing: ProductDetail = {
     body: "Discuss your channels, transaction flows and operational requirements with the INFINIOS team.",
     ctaLabel: "Request a Demo",
     ctaHref: "/contact",
-    image: "/new-images/cta-banner-card.jpg",
+    image: "/new-images/cta-banner-products.jpg",
   },
 };

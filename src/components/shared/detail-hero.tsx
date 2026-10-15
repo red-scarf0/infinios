@@ -12,6 +12,8 @@ export type DetailHeroContent = {
   body: string;
   /** Artwork only — the frame's text and CTAs are rendered live over it. */
   image: string;
+  /** Subject position kept in view when the plate is cropped (below desktop). */
+  imagePosition?: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
 };
@@ -105,6 +107,11 @@ export function DetailHero({
           priority={priority}
           sizes="100vw"
           className="object-cover"
+          style={
+            hero.imagePosition
+              ? { objectPosition: hero.imagePosition }
+              : undefined
+          }
         />
       </div>
 

@@ -38,30 +38,6 @@ const CARDS = [
   },
 ];
 
-const COINS = [
-  {
-    src: "/images/coin-md.png",
-    w: 209,
-    h: 208,
-    pos: "left-[30.05vw] top-[9.01vw] w-[10.89vw]",
-    delay: "-1.2s",
-  },
-  {
-    src: "/images/coin-lg.png",
-    w: 220,
-    h: 294,
-    pos: "left-[61.67vw] top-[15.52vw] w-[11.46vw]",
-    delay: "-3.4s",
-  },
-  {
-    src: "/images/coin-sm.png",
-    w: 185,
-    h: 140,
-    pos: "left-[32.55vw] top-[38.91vw] w-[9.64vw]",
-    delay: "-5.1s",
-  },
-];
-
 export function TrustCards() {
   return (
     <section className="bg-white">
@@ -74,27 +50,6 @@ export function TrustCards() {
           sizes="100vw"
           className="-z-10 object-cover"
         />
-
-        {/* Floating coin renders — decorative, desktop composition only. */}
-        {COINS.map((coin) => (
-          <div
-            key={coin.src}
-            aria-hidden
-            className={cn(
-              "float-card absolute -z-10 hidden 2xl:block",
-              coin.pos,
-            )}
-            style={{ animationDelay: coin.delay }}
-          >
-            <Image
-              src={coin.src}
-              alt=""
-              width={coin.w}
-              height={coin.h}
-              className="h-auto w-full"
-            />
-          </div>
-        ))}
 
         <Reveal
           as="ul"

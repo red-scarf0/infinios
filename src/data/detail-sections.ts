@@ -31,6 +31,12 @@ export type DetailHero = {
   heading: string;
   body: string;
   image: string;
+  /**
+   * Where the plate's subject sits, as a CSS object-position. The plate shows
+   * whole from desktop up; below that it is cropped at the sides, and this
+   * keeps the subject in view instead of the centre.
+   */
+  imagePosition?: string;
   primaryCta: DetailCtaLink;
   secondaryCta: DetailCtaLink;
   /** Frame measures — every hero plate is a slightly different height. */

@@ -36,7 +36,7 @@ export default function IndustriesPage() {
           body="Our team will help identify the infrastructure, controls and operating model required around it."
           ctaLabel="Speak to Our Team"
           ctaHref="/contact"
-          image="/new-images/cta-banner-homepage.png"
+          image="/new-images/cta-banner-industries.jpg"
           headingMeasure="529px"
           bodyMeasure="420px"
           paddingTop="165px"

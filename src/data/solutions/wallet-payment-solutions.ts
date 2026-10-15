@@ -17,11 +17,12 @@ export const walletPaymentSolutions: SolutionDetail = {
     heading:
       "Create wallet-led journeys that connect funding, transfers and payments.",
     body: "Build customer and business payment experiences around balances, funding flows, transfers, payouts and embedded payment functionality.",
-    image: "/new-images/wallet payment and solution.jpg",
+    image: `${IMAGES}/wallet-payment-solutions-hero-plate.jpg`,
+    imagePosition: "65% 50%",
     primaryCta: { label: "Explore Wallet Solutions", href: "#capabilities" },
     secondaryCta: { label: "Speak to Our Team", href: "/contact" },
     metrics: {
-      minHeight: 1012,
+      minHeight: 1173,
       paddingTop: 175,
       paddingTopDesktop: 255,
       // This frame indents the page name to x=188; its siblings sit flush.
@@ -193,7 +194,7 @@ export const walletPaymentSolutions: SolutionDetail = {
     body: "Share how value should enter, move through and leave your ecosystem. We will help structure the solution behind it.",
     ctaLabel: "Speak to Our Team",
     ctaHref: "/contact",
-    image: "/new-images/cta-banner-card.jpg",
+    image: "/new-images/cta-banner-solutions-laptop.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",

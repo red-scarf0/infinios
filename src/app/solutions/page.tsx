@@ -53,7 +53,7 @@ export default function SolutionsPage() {
           body="Our team will help translate the business requirement into a practical payment programme."
           ctaLabel="Discuss Your Use Case"
           ctaHref="/contact"
-          image="/new-images/cta-banner-solutions.jpg"
+          image="/new-images/cta-banner-solutions-laptop.jpg"
           headingMeasure="529px"
           bodyMeasure="420px"
           paddingTop="165px"

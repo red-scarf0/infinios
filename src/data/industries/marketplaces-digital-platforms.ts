@@ -2,6 +2,25 @@ import type { IndustryDetail } from "./types";
 
 const IMAGES = "/new-images/Marketplaces & Digital Platforms images";
 
+/*
+ * In production, Next 15's image optimizer looks public files up by their
+ * percent-encoded path, so a raw "&" never matches and the request 400s.
+ * Hand next/image the encoded path instead. Each segment is decoded first so
+ * an already-encoded segment is not encoded twice.
+ */
+function image(file: string) {
+  return `${IMAGES}/${file}`
+    .split("/")
+    .map((segment) => {
+      try {
+        return encodeURIComponent(decodeURIComponent(segment));
+      } catch {
+        return encodeURIComponent(segment);
+      }
+    })
+    .join("/");
+}
+
 export const marketplacesDigitalPlatforms: IndustryDetail = {
   slug: "marketplaces-digital-platforms",
   metadata: {
@@ -14,14 +33,15 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
     heading:
       "Embed financial experiences directly into the journeys your platform already owns.",
     body: "Embed payments, wallets, cards and settlement into user and merchant journeys.",
-    image: `${IMAGES}/hero-Marketplaces & Digital Platforms.jpg`,
+    image: "/images/industries/marketplaces-digital-platforms-hero-plate.jpg",
+    imagePosition: "56% 50%",
     primaryCta: { label: "Explore Embedded Payments", href: "#capabilities" },
     secondaryCta: { label: "Request a Demo", href: "/contact" },
     metrics: {
-      minHeight: 1034,
+      minHeight: 1174,
       paddingTop: 205,
       paddingTopDesktop: 250,
-      paddingBottom: 114,
+      paddingBottom: 93,
       bodyGap: 41,
       ctaGap: 21,
       primaryWidth: 343,
@@ -42,32 +62,32 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
         {
           title: "Embedded Cards",
           body: "Issue virtual or physical cards directly within the platform experience.",
-          image: `${IMAGES}/Embedded Cards.png`,
+          image: image("Embedded Cards.png"),
         },
         {
           title: "Wallet Functionality",
           body: "Enable balances, funding and transfers for users, merchants or partners.",
-          image: `${IMAGES}/Wallet Functionality.png`,
+          image: image("Wallet Functionality.png"),
         },
         {
           title: "Platform Payments",
           body: "Support payment initiation, processing and operational controls.",
-          image: `${IMAGES}/Platform Payments.png`,
+          image: image("Platform Payments.png"),
         },
         {
           title: "Merchant & Partner Settlement",
           body: "Manage payer and settlement flows across the ecosystem.",
-          image: `${IMAGES}/Merchant & Partner Settlement.png`,
+          image: image("Merchant & Partner Settlement.png"),
         },
         {
           title: "API Connectivity",
           body: "Connect payment functionality directly to platform workflows.",
-          image: `${IMAGES}/API Connectivity.png`,
+          image: image("API Connectivity.png"),
         },
         {
           title: "Reporting",
           body: "Track transactions, balances, settlement and operational activity.",
-          image: `${IMAGES}/reporting.png`,
+          image: image("reporting.png"),
         },
       ],
     },
@@ -83,7 +103,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
             x: 148,
             y: 2848,
             width: 310,
-            icon: `${IMAGES}/icons (1).png`,
+            icon: image("icons (3).png"),
             iconX: 290,
             iconY: 2758,
             iconWidth: 60,
@@ -94,7 +114,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
             x: 500,
             y: 2848,
             width: 400,
-            icon: `${IMAGES}/icons (2).png`,
+            icon: image("icons (1).png"),
             iconX: 728,
             iconY: 2768,
             iconWidth: 62,
@@ -105,7 +125,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
             x: 950,
             y: 2848,
             width: 320,
-            icon: `${IMAGES}/icons (3).png`,
+            icon: image("icons (6).png"),
             iconX: 1144,
             iconY: 2758,
             iconWidth: 48,
@@ -116,7 +136,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
             x: 148,
             y: 3038,
             width: 310,
-            icon: `${IMAGES}/icons (4).png`,
+            icon: image("icons (2).png"),
             iconX: 310,
             iconY: 2955,
             iconWidth: 48,
@@ -127,7 +147,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
             x: 520,
             y: 3038,
             width: 430,
-            icon: `${IMAGES}/icons (5).png`,
+            icon: image("icons (5).png"),
             iconX: 750,
             iconY: 2955,
             iconWidth: 52,
@@ -138,7 +158,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
             x: 1020,
             y: 3038,
             width: 300,
-            icon: `${IMAGES}/icons (6).png`,
+            icon: image("icons (4).png"),
             iconX: 1130,
             iconY: 2958,
             iconWidth: 44,
@@ -179,7 +199,7 @@ export const marketplacesDigitalPlatforms: IndustryDetail = {
     body: "Share the user, merchant and settlement journeys you want to support.",
     ctaLabel: "Request a Demo",
     ctaHref: "/contact",
-    image: "/new-images/cta-banner-card.jpg",
+    image: "/new-images/cta-banner-industries.jpg",
     headingMeasure: "553px",
     bodyMeasure: "474px",
     paddingTop: "124px",

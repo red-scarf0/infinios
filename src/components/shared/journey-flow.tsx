@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import Image from "next/image";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Reveal } from "@/components/motion/reveal";
+import { cn } from "@/lib/utils";
 import {
   CONNECTOR_HEIGHT,
   CONNECTOR_WIDTH,
@@ -73,7 +74,16 @@ export function JourneyFlow({
     >
       <Container>
         <Reveal>
-          <SectionLabel className={headingClassName}>{journey.label}</SectionLabel>
+          {/* Flow headings sit a step above the shared eyebrow size; a
+              per-section headingClassName still wins over this default. */}
+          <SectionLabel
+            className={cn(
+              "text-[18px] leading-[1.2] sm:text-[22px] lg:text-[32px]",
+              headingClassName,
+            )}
+          >
+            {journey.label}
+          </SectionLabel>
         </Reveal>
 
         <div onMouseLeave={() => setActive(null)}>
