@@ -9,7 +9,7 @@ import {
 const PRODUCTS: CapabilityCard[] = [
   {
     title: "Card Issuing",
-    body: "Launch and manage virtual and physical cards with configurable rules and lifecycle controls.",
+    body: "Launch virtual and physical card programs with lifecycle management, transaction controls, and operational visibility.",
     icon: "/icons/card-issuing.svg",
     iconWidth: 55,
     iconHeight: 38,
@@ -17,7 +17,7 @@ const PRODUCTS: CapabilityCard[] = [
   },
   {
     title: "Digital Wallets",
-    body: "Launch and manage virtual and physical cards with configurable rules and lifecycle controls.",
+    body: "Create wallet-led experiences with balances, funding flows, transfers, and embedded payments.",
     icon: "/icons/digital-wallets.svg",
     iconWidth: 54,
     iconHeight: 45,
@@ -25,7 +25,7 @@ const PRODUCTS: CapabilityCard[] = [
   },
   {
     title: "Payment Processing",
-    body: "Launch and manage virtual and physical cards with configurable rules and lifecycle controls.",
+    body: "Process transactions with authorization, routing, settlement, reconciliation, and reporting capabilities.",
     icon: "/icons/payment-processing.svg",
     iconWidth: 51,
     iconHeight: 35,
@@ -33,7 +33,7 @@ const PRODUCTS: CapabilityCard[] = [
   },
   {
     title: "APIs & Integrations",
-    body: "Launch and manage virtual and physical cards with configurable rules and lifecycle controls.",
+    body: "Connect financial infrastructure into client applications, core systems, and operational environments.",
     icon: "/icons/apis-operations.svg",
     iconWidth: 61,
     iconHeight: 32,
@@ -41,13 +41,16 @@ const PRODUCTS: CapabilityCard[] = [
   },
   {
     title: "Platform & Operations",
-    body: "Launch and manage virtual and physical cards with configurable rules and lifecycle controls.",
+    body: "Manage programs, users, transactions, reporting, controls, and workflows from one centralized interface.",
     icon: "/icons/platform-operations.svg",
     iconWidth: 46,
     iconHeight: 36,
     href: "/products/platform-operations",
   },
 ];
+
+/** Row height reserved for an expanded card where the row fits on one line. */
+const CARD_RESERVE = 336;
 
 /**
  * "INFINIOS PRODUCTS" — the capability cards sit on a large rounded plate
@@ -57,7 +60,11 @@ export function ProductsSection() {
   return (
     <section
       id="products"
-      className="relative pt-0 pb-16 lg:-mt-[64px] lg:pb-[179px]"
+      // From 1552px the row reserves CARD_RESERVE rather than the default
+      // 271px; the bottom padding gives the 65px back, so the section ends
+      // exactly where it did. The two ranges don't overlap, so neither
+      // depends on which rule the stylesheet emits last.
+      className="relative pt-0 pb-16 min-[1552px]:pb-[114px] lg:-mt-[64px] lg:max-[1552px]:pb-[179px]"
     >
       {/*
         The plate is a fixed 1894x856 backdrop (r=89) that the card row
@@ -105,8 +112,13 @@ export function ProductsSection() {
 
         <Reveal className="mt-12 lg:mt-[31px]">
           {/* `fitTitle` keeps "Platform & Operations" on one line, so all five
-              cards stand the same height. See the metric for why. */}
-          <CapabilityCardRow items={PRODUCTS} metrics={{ fitTitle: true }} />
+              cards stand the same height. See the metric for why.
+              `reserve` holds the tallest expanded card (Card Issuing's copy
+              runs to six lines), so hovering never pushes the page down. */}
+          <CapabilityCardRow
+            items={PRODUCTS}
+            metrics={{ fitTitle: true, reserve: CARD_RESERVE }}
+          />
         </Reveal>
       </div>
     </section>
